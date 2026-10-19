@@ -98,3 +98,13 @@
  .heroTitle{font-size:clamp(45px,12vh,78px)}
  .loadingArea{margin-top:18px}
 }
+
+/* Native WebGL showroom: no embedded viewer, fully controlled car turntable. */
+#carModelViewer{position:absolute;inset:0;width:100%;height:100%;z-index:2;background:transparent;overflow:hidden}
+#carModelViewer canvas{display:block;width:100%;height:100%;touch-action:pan-y}
+.modelFallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;background:radial-gradient(ellipse,#242c2d,#080a0c);color:#d7ff4f;text-align:center;padding:24px}
+.modelFallback span{max-width:240px;font-size:10px;color:#aeb5b5;line-height:1.6}
+.fallbackCar{font-size:58px;font-weight:950;font-style:italic;letter-spacing:-.12em;border:2px solid #d7ff4f;padding:8px 20px;transform:skewX(-9deg)}
+.garageArchitecture{z-index:0}
+.stageGlow{pointer-events:none}
+@media(prefers-reduced-motion:reduce){.turntableOuter,.turntableRing{animation-duration:80s!important}}
