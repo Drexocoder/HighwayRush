@@ -41,7 +41,7 @@ function unlockMusic(){
 
 function playUi(kind){if(!soundOn)return;try{audio=audio||new(window.AudioContext||window.webkitAudioContext)();if(audio.state==='suspended')audio.resume();const now=audio.currentTime;let o=audio.createOscillator(),g=audio.createGain();o.type=kind==='select'?'sine':'triangle';o.frequency.setValueAtTime(kind==='select'?620:430,now);o.frequency.exponentialRampToValueAtTime(kind==='select'?880:590,now+.075);g.gain.setValueAtTime(.045,now);g.gain.exponentialRampToValueAtTime(.001,now+.14);o.connect(g);g.connect(audio.destination);o.start();o.stop(now+.15);}catch(e){}}
 $('soundBtn').addEventListener('click',async()=>{if(!soundOn){await startMusic();}else{stopMusic();}$('soundBtn').innerHTML=soundOn?'<i data-lucide="volume-2"></i>':'<i data-lucide="music-2"></i>';if(window.lucide)lucide.createIcons();});
-window.addEventListener('pointerdown',unlockMusic,{once:true});window.addEventListener('keydown',unlockMusic,{once:true});
+window.addEventListener('pointerdown',unlockMusic);window.addEventListener('keydown',unlockMusic);window.addEventListener('touchstart',unlockMusic,{passive:true});
 document.querySelectorAll('button').forEach(b=>{if(b.id!=='soundBtn')b.addEventListener('click',()=>playUi('click'));});
 
 
@@ -67,5 +67,5 @@ function draw(t){const dt=Math.min((t-last)/1000||0,.04);last=t;ctx.clearRect(0,
 if(page==='intro'){for(let i=0;i<10;i++){let y=((i*83+t*.07)%h);let x=((i*173+t*.22)%w);let len=25+(i%4)*24;ctx.globalAlpha=.08+(i%3)*.025;ctx.strokeStyle='#d7ff4f';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x-len,y+len*.13);ctx.stroke();}}
 // subtle focus flare
 let g=ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(w,h)*.52);g.addColorStop(0,'rgba(215,255,79,.035)');g.addColorStop(1,'rgba(215,255,79,0)');ctx.fillStyle=g;ctx.fillRect(0,0,w,h);ctx.globalAlpha=1;requestAnimationFrame(draw);}
-window.addEventListener('resize',resize);resize();requestAnimationFrame(draw);startLoading();startMusic();
+window.addEventListener('resize',resize);resize();requestAnimationFrame(draw);startLoading();startMusic();window.__highwayRushBooted=true;
 })();
