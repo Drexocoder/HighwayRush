@@ -245,3 +245,27 @@
 .carStage.galleryMode{background:radial-gradient(ellipse at 50% 55%,#56605d,#171b1c 75%)}
 .carStage.galleryMode:after{content:'GALLERY MODE  /  CINEMATIC VIEW';position:absolute;right:12px;top:12px;z-index:5;color:#f1f4f0;background:#090c0dc9;padding:9px 12px;font-size:8px;letter-spacing:.14em;border:1px solid #ffffff33}
 @media(max-width:900px){.detailLayout{background:transparent}.detailMenu{background:#303535cc}.detailSpecs{background:#1b2020e8}}
+
+/* Immersive showroom HUD: transparent side rails instead of rectangular cards. */
+.garageShade{background:radial-gradient(ellipse at 52% 45%,#24292a 0%,#0b0e0f 66%,#060708 100%)}
+.garageHeader{background:linear-gradient(90deg,#11151885,transparent 75%);border-bottom:1px solid #ffffff1b;padding-left:10px;padding-right:10px}
+.detailLayout{background:transparent;gap:clamp(14px,2vw,32px);grid-template-columns:minmax(145px,.62fr) minmax(320px,2.35fr) minmax(190px,.72fr)}
+.detailMenu{background:transparent;border:0;border-right:1px solid #ffffff20;padding:14px 18px 14px 0;backdrop-filter:none}
+.detailMenuTitle{padding-left:0;font-size:clamp(23px,2.2vw,34px);border-bottom:1px solid #ffffff26}
+.detailMenuItem{position:relative;background:transparent!important;color:#e6e9e6!important;border:0;border-bottom:1px solid #ffffff18;box-shadow:none;min-height:48px;padding:10px 6px;font-size:10px;transition:color .2s,border-color .2s}
+.detailMenuItem:before{content:"";position:absolute;left:0;bottom:-1px;width:0;height:2px;background:var(--acid);transition:width .25s}
+.detailMenuItem.active,.detailMenuItem:hover{color:var(--acid)!important;border-color:#ffffff36}
+.detailMenuItem.active:before,.detailMenuItem:hover:before{width:100%}
+.detailMenuItem span{color:#8f9997}.detailMenuItem svg{opacity:.7}.detailMenuFoot{padding-left:0}
+.carStage{border:0;box-shadow:none;background:radial-gradient(ellipse at 50% 62%,#3c4544 0%,#222829 44%,#101314 77%,transparent 100%);overflow:hidden}
+.carStage:before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,transparent,#ffffff05 50%,transparent),linear-gradient(0deg,#0007,transparent 32%);z-index:1}
+.stageLabel{background:#090c0db0;border:0;border-left:2px solid var(--acid);backdrop-filter:blur(8px)}
+.stageHint{background:#090c0d9c;border:0;backdrop-filter:blur(8px)}
+.detailSpecs{background:linear-gradient(180deg,#ffffff08,transparent 55%);border:0;border-left:1px solid #ffffff20;backdrop-filter:none;padding:20px 0 14px 20px}
+.detailSpecs .specRows{border-top:1px solid #ffffff20}.detailSpecs .specRow{border-bottom:1px solid #ffffff18}
+.showroomControls{position:absolute;z-index:7;right:14px;bottom:48px;display:flex;gap:6px}
+.showroomControls button{width:34px;height:32px;border:1px solid #ffffff35;background:#090c0db5;color:#eef1ec;font-size:18px;line-height:1;backdrop-filter:blur(8px);transition:background .2s,border-color .2s,color .2s}
+.showroomControls button:hover{border-color:var(--acid);color:var(--acid);background:#d7ff4f12}
+#carModelViewer canvas{touch-action:none;cursor:grab}
+@media(max-width:900px){.detailLayout{grid-template-columns:125px minmax(0,1fr);gap:16px}.detailMenu{border-right:1px solid #ffffff20;padding-right:12px}.detailSpecs{border-left:0;border-top:1px solid #ffffff20;padding:14px 0 0}.showroomControls{bottom:42px}}
+@media(max-width:560px){.detailMenu{border:0;padding:10px;background:linear-gradient(90deg,#ffffff08,transparent)}.detailMenuItem{border:1px solid #ffffff1c;padding:8px}.detailMenuItem.active:before,.detailMenuItem:hover:before{display:none}.detailMenuItem.active,.detailMenuItem:hover{background:#d7ff4f10!important}.detailSpecs{padding:12px 0 0}.showroomControls{right:8px;bottom:37px}.showroomControls button{width:30px;height:29px}}
