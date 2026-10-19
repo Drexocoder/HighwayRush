@@ -13,12 +13,12 @@ A full-screen, landscape-first browser material sandbox with touch-friendly cont
 - Landscape-first layout with compact floating controls and a horizontal material dock
 - Touch + mouse painting, continuous strokes, pointer capture and right-click erase
 - Corrected cell processing so particles do not get updated repeatedly after a swap
-- 13 materials: sand, water, stone, wood, fire, plant, oil, acid, lava, ice, steam, smoke and eraser
-- Phase 2 interactions: acid dissolves selected solids; lava heats materials and cools into rock; fire spreads and turns into smoke; ice melts; steam rises and can condense
+- 15 material slots: sand, water, stone, glass, wood, fire, powder, plant, oil, acid, lava, ice, steam, smoke and eraser
+- Phase 2 interactions: acid dissolves selected solids; lava heats materials and cools into rock; fire spreads through wood/plants/oil; powder detonates in a chain blast; glass remains solid; ice melts; steam rises and can condense
 - Quick experiments for rainfall, ignition and plant growth
 - Pause/resume, world reset, brush size and 1×–4× simulation speed
 - Compact telemetry for particle count, FPS and reactions
-- 3D-style tactile buttons, selection feedback, entrance animations and smooth UI transitions
+- Crisp opaque controls (no canvas blur), tactile 3D-style buttons, selection feedback, entrance animations, blast flash/shake and smooth UI transitions
 - Respects `prefers-reduced-motion`; portrait mode offers a rotate hint but can be continued
 
 ## Controls
@@ -33,4 +33,4 @@ A full-screen, landscape-first browser material sandbox with touch-friendly cont
 
 ## Technical notes
 
-Single-file HTML/CSS/JavaScript; no build step, external assets, or animation library required. The simulation is a lightweight cellular sandbox rather than a scientific fluid-dynamics engine. Phase 2 prioritizes reliable input, more materials, a smaller interface and mobile performance.
+Single-file HTML/CSS/JavaScript; no build step, external assets, or animation library required. The renderer uses a compact cellular grid with per-cell shading and a textured ambient background. The simulation is a lightweight cellular sandbox rather than a scientific fluid-dynamics engine. Phase 2 prioritizes reliable input, more materials, a smaller interface and mobile performance.
