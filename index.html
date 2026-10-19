@@ -45,16 +45,17 @@
     <div class="garageTip"><i data-lucide="move-horizontal"></i> DRAG TO ROTATE · SCROLL TO ZOOM</div>
    </aside>
    <section class="carStage" id="carStage" aria-label="Interactive car preview">
-    <div class="stageGlow"></div><div class="stageGrid"></div><div class="stageLabel" id="stageLabel">NISSAN GT-R R35 / 2024</div>
-    <iframe id="carModelViewer" title="Interactive 3D car model" allow="autoplay; fullscreen; xr-spatial-tracking" allowfullscreen loading="lazy" src="https://sketchfab.com/models/51c912a8310c4e00a82ad7673d84228a/embed?autostart=1&amp;ui_theme=dark&amp;ui_controls=1&amp;ui_infos=0&amp;ui_inspector=0"></iframe>
-    <div class="stageHint">REAL 3D MODEL · DRAG TO ORBIT · SCROLL TO ZOOM</div>
+    <div class="garageArchitecture"><div class="garageBeam beamA"></div><div class="garageBeam beamB"></div><div class="garageLight"></div><div class="turntableOuter"></div><div class="turntableRing"></div><div class="turntableDisc"></div><div class="floorReflection"></div></div><div class="stageGlow"></div><div class="stageGrid"></div><div class="stageLabel" id="stageLabel">NISSAN GT-R R35</div>
+    <iframe id="carModelViewer" title="Interactive 3D car model" allow="autoplay; fullscreen; xr-spatial-tracking" allowfullscreen loading="lazy" src="https://sketchfab.com/models/51c912a8310c4e00a82ad7673d84228a/embed?autostart=1&amp;ui_theme=dark&amp;ui_controls=0&amp;ui_infos=0&amp;ui_inspector=0&amp;ui_watermark=0"></iframe>
+    <div class="stageHint">3D SHOWROOM</div><button class="stageControl detailsToggle" id="detailsToggle" aria-label="Vehicle details" title="Vehicle details"><i data-lucide="info"></i></button>
    </section>
    <aside class="specPanel"><div class="specTop"><div class="specEyebrow">VEHICLE PROFILE</div><h3 id="specName">GT-R <span>R35</span></h3><p id="specBlurb">Precision-built Japanese performance coupe.</p></div>
     <div class="specRows"><div class="specRow"><span>TOP SPEED</span><b id="specSpeed">315 km/h</b></div><div class="specRow"><span>0–100 km/h</span><b id="specAccel">2.9 sec</b></div><div class="specRow"><span>POWER</span><b id="specPower">565 HP</b></div><div class="specRow"><span>DRIVETRAIN</span><b id="specDrive">AWD</b></div><div class="specRow"><span>HANDLING</span><b id="specHandling">★★★★☆</b></div></div>
-    <div class="specDisclaimer">REFERENCE SPECS · VARIES BY MODEL / TRIM</div><button class="selectCar" id="selectCar"><i data-lucide="check-circle-2"></i> SELECT THIS CAR</button>
+    <div class="specDisclaimer">SPECIFICATIONS ARE APPROXIMATE</div><button class="selectCar" id="selectCar"><i data-lucide="check-circle-2"></i> SELECT THIS CAR</button><div class="garageToast" id="garageToast" aria-live="polite"></div>
    </aside>
   </div>
  </div>
+ <div class="specPopup" id="specPopup" role="dialog" aria-label="Vehicle details"><button class="specPopupClose" id="specPopupClose" aria-label="Close details"><i data-lucide="x"></i></button><div class="specEyebrow">VEHICLE DETAILS</div><h3 id="popupCarName">GT-R R35</h3><div class="specPopupRows"><span>TOP SPEED <b id="popupSpeed">315 km/h</b></span><span>0–100 KM/H <b id="popupAccel">2.9 sec</b></span><span>POWER <b id="popupPower">565 HP</b></span><span>DRIVETRAIN <b id="popupDrive">AWD</b></span></div></div>
 </div>
 <div class="modalShade" id="modalShade" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal"><div class="modalLabel" id="modalLabel">HIGHWAY RUSH</div><h2 id="modalTitle">Coming soon</h2><p id="modalText"></p><div class="modalActions"><button class="actionBtn" id="closeModal"><i data-lucide="arrow-left"></i> Back</button><button class="actionBtn primaryAction" id="modalOk">Understood <i data-lucide="arrow-up-right"></i></button></div></div></div>
 <div class="portraitHint" id="portraitHint"><div class="portraitCard"><div class="rotateGraphic"><i data-lucide="smartphone"></i></div><h2>Turn up the horizon</h2><p>HIGHWAY RUSH is best experienced in landscape. Rotate your phone for a wider, cinematic view.</p><button id="rotateBtn">Try landscape mode</button></div></div>
