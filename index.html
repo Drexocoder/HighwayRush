@@ -45,7 +45,10 @@ button:focus-visible{outline:2px solid var(--lime);outline-offset:3px}
 .stat{padding:7px 10px;border-radius:11px;border:1px solid #ffffff15;background:rgba(8,13,10,.56);backdrop-filter:none;font-size:10px;color:#9eaea1;font-variant-numeric:tabular-nums}
 .stat b{color:#f0f7f0;font-size:11px;margin-left:4px}
 #message{position:absolute;z-index:7;top:calc(var(--safe-top) + 72px);left:50%;transform:translate(-50%,-7px);opacity:0;pointer-events:none;padding:10px 14px;border-radius:13px;border:1px solid #cafa8055;background:#172116ed;color:#eaffd0;box-shadow:0 10px 35px #0005;font-size:11px;font-weight:750;white-space:nowrap;transition:opacity .2s,transform .2s cubic-bezier(.2,.8,.2,1);backdrop-filter:none}
-#message.show{opacity:1;transform:translate(-50%,0)}
+#message.show{opacity:1;transform:translate(-50%,0);animation:toastPulse .3s ease-out}
+@keyframes toastPulse{0%{filter:brightness(1.5);box-shadow:0 0 0 0 #cafa8044,0 10px 35px #0005}100%{filter:brightness(1);box-shadow:0 10px 35px #0005}}
+.materialdock{box-shadow:0 8px 20px #0003}
+@media(max-width:760px) and (orientation:portrait){.materialdock{box-shadow:0 5px 14px #0003}.toolrow{box-shadow:0 5px 14px #0003}.material.selected{box-shadow:inset 0 1px 0 #ffffff20,0 0 0 1px #bdf17615}}
 .bottom{position:absolute;z-index:4;bottom:calc(var(--safe-bottom) + 12px);left:12px;right:12px;display:flex;flex-direction:column;align-items:stretch;gap:8px;animation:riseIn .55s .08s cubic-bezier(.2,.8,.2,1) both}
 .toolrow{align-self:center;display:flex;align-items:center;gap:8px;padding:7px;border:1px solid #ffffff1c;background:var(--glass);backdrop-filter:none;border-radius:16px;box-shadow:0 12px 35px #0005;max-width:100%}
 .toolrow .divider{height:25px;width:1px;background:#ffffff20;margin:0 1px}
