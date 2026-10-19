@@ -30,7 +30,7 @@
 </head>
 <body>
 <div id="app">
-<div class="scene ready" id="introScene"><video class="introVideo" id="introVideo" autoplay muted loop playsinline preload="auto" poster="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=2400&q=90"><source src="https://videos.pexels.com/video-files/854310/854310-hd_1920_1080_25fps.mp4" type="video/mp4"></video><div class="vignette"></div><div class="grain"></div><div class="scanline"></div><div class="lightSweep"></div></div>
+<div class="scene ready" id="introScene"><div class="photo introPhoto"></div><video class="introVideo" id="introVideo" autoplay muted loop playsinline preload="metadata" poster="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=2400&q=90"><source src="https://videos.pexels.com/video-files/854310/854310-hd_1920_1080_25fps.mp4" type="video/mp4"></video><div class="vignette"></div><div class="grain"></div><div class="scanline"></div><div class="lightSweep"></div></div>
 <div class="scene" id="menuScene"><div class="photo menuPhoto"></div><div class="vignette"></div><div class="grain"></div><div class="lightSweep"></div></div>
 <canvas id="fx"></canvas>
 <header class="header"><div class="brand">
@@ -39,7 +39,7 @@
 <div class="version">PRE-ALPHA · 0.2.0</div>
 <section class="view active" id="introView" aria-label="Cinematic intro">
 <div class="introContent"><div class="overline">The road is calling</div><h1 class="heroTitle">HIGHWAY<span>RUSH.</span></h1><p class="introCopy">Night falls. Engines wake. Every mile is a new story. Your highway moment begins here.</p>
-<div class="loadingArea"><div class="loadMeta"><span id="loadStatus">INITIALIZING EXPERIENCE</span><span class="loadPercent" id="loadPercent">00%</span></div><div class="loadTrack"><div class="loadFill" id="loadFill"></div></div><div class="loadFoot"><span>Preparing the road</span><span class="loadHint" id="loadHint">DOWNLOADING VISUAL ASSETS</span></div></div>
+<div class="loadingArea"><div class="loadMeta"><span id="loadStatus">INITIALIZING EXPERIENCE</span><span class="loadPercent" id="loadPercent">00%</span></div><div class="loadTrack"><div class="loadFill" id="loadFill"></div></div><div class="loadFoot"><span>Preparing the garage</span><span class="loadHint" id="loadHint">CAR ASSETS 0 / 2</span></div></div>
 </div></section>
 <section class="view" id="menuView" aria-label="Main menu">
 <div class="menuGrid"><div class="menuPanel"><div class="menuKicker">Select your destination</div><h2 class="menuTitle">Own the<br><em>open road.</em></h2><p class="menuDescription">The city fades. The highway opens. Your next obsession starts here.</p>
@@ -86,16 +86,19 @@ const stages=[[0,'INITIALIZING EXPERIENCE'],[18,'CALIBRATING VISUALS'],[39,'LOAD
 function setLoad(v){load=v;percent.textContent=String(Math.floor(v)).padStart(2,'0')+'%';fill.style.width=v+'%';let s=stages[0][1];for(const st of stages)if(v>=st[0])s=st[1];status.textContent=s;}
 function showMenu(){if(finished)return;finished=true;clearInterval(loadTimer);setLoad(100);introView.classList.remove('active');menuView.classList.add('active');introScene.classList.remove('ready');menuScene.classList.add('ready');page='menu';document.querySelector('.statusText').textContent='SYSTEM READY';setTimeout(()=>{introScene.style.display='none';},1200);}
 async function startLoading(){
+ // Only preload the two selected vehicle visuals. Intro video and decorative backgrounds never block the loader.
  const assets=[
-  {name:'CINEMATIC INTRO',url:'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=2400&q=90',type:'image'},
-  {name:'GARAGE / GT-R',url:'https://images.unsplash.com/photo-1614200187524-dc4b892acf16?auto=format&fit=crop&w=1400&q=90',type:'image'},
-  {name:'GARAGE / MUSTANG',url:'https://images.unsplash.com/photo-1584345604476-8ec5b7c5a6b0?auto=format&fit=crop&w=1400&q=90',type:'image'},
-  {name:'MENU BACKGROUND',url:'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=2200&q=88',type:'image'}
+  {name:'NISSAN GT-R R35',url:'https://images.unsplash.com/photo-1614200187524-dc4b892acf16?auto=format&fit=crop&w=1400&q=82'},
+  {name:'FORD MUSTANG GT',url:'https://images.unsplash.com/photo-1584345604476-8ec5b7c5a6b0?auto=format&fit=crop&w=1400&q=82'}
  ];
- let done=0;setLoad(0);status.textContent='DOWNLOADING VISUAL ASSETS';$('loadHint').textContent='DOWNLOADING 0 / '+assets.length+' ASSETS';
- const jobs=assets.map(a=>new Promise(resolve=>{const img=new Image();img.onload=()=>{done++;setLoad(done/assets.length*88);$('loadHint').textContent='DOWNLOADING '+done+' / '+assets.length+' ASSETS';resolve(true)};img.onerror=()=>{done++;setLoad(done/assets.length*88);$('loadHint').textContent='PREPARING FALLBACKS · '+done+' / '+assets.length;resolve(false)};img.src=a.url;}));
- const video=$('introVideo');const videoReady=new Promise(resolve=>{if(video.readyState>=2){resolve(true);return;}const timeout=setTimeout(()=>resolve(false),12000);video.addEventListener('loadeddata',()=>{clearTimeout(timeout);resolve(true)},{once:true});video.addEventListener('error',()=>{clearTimeout(timeout);resolve(false)},{once:true});try{video.load();}catch(e){}});
- await Promise.all([...jobs,videoReady]);if(finished)return;setLoad(100);status.textContent='ASSETS READY';$('loadHint').textContent='EXPERIENCE READY';setTimeout(showMenu,900);
+ let completed=0;setLoad(0);status.textContent='LOADING CAR VISUALS';$('loadHint').textContent='CAR ASSETS 0 / 2';
+ const jobs=assets.map(asset=>new Promise(resolve=>{
+   let settled=false;const finish=ok=>{if(settled)return;settled=true;completed++;setLoad(completed/assets.length*100);status.textContent=ok?'LOADING CAR VISUALS':'CAR VISUAL UNAVAILABLE';$('loadHint').textContent='CAR ASSETS '+completed+' / '+assets.length;resolve(ok);};
+   const img=new Image();const timeout=setTimeout(()=>finish(false),6500);
+   img.onload=()=>{clearTimeout(timeout);finish(true)};img.onerror=()=>{clearTimeout(timeout);finish(false)};img.src=asset.url;
+ }));
+ // Never wait for video/network stalls. After the two car assets resolve or time out, enter the menu.
+ await Promise.all(jobs);if(finished)return;setLoad(100);status.textContent='GARAGE READY';$('loadHint').textContent='2 CAR VISUALS CHECKED';setTimeout(showMenu,450);
 }
 
 const copy={drive:['FIRST DRIVE','The highway is still being built.','This build is the cinematic intro and main menu only. The playable driving scene, traffic, steering, speed effects and scoring are the next development phase.'],garage:['THE GARAGE','Opening vehicle showroom.','Choose a car in the interactive showroom.'],settings:['SETTINGS','Your setup, your style.','This preview adapts to your screen size and includes an optional sound toggle. Graphics, controls and gameplay settings will arrive with the driving build.'],about:['THE PROJECT','Built for the open road.','HIGHWAY RUSH is a mobile-first browser car driving game concept. This version focuses on a cinematic intro, responsive main menu and visual effects.']};
@@ -126,7 +129,7 @@ $('selectCar').addEventListener('click',()=>{const d=carData[selectedCar];$('sel
 \nasync function tryLandscape(){try{if(!document.fullscreenElement&&document.documentElement.requestFullscreen)await document.documentElement.requestFullscreen();if(screen.orientation&&screen.orientation.lock)await screen.orientation.lock('landscape');}catch(e){}$('portraitHint').style.display='none';}
 $('rotateBtn').addEventListener('click',tryLandscape);
 function portraitCheck(){const mobile=matchMedia('(max-width:760px)').matches;const portrait=innerHeight>innerWidth;if(mobile&&portrait){$('portraitHint').style.display='flex';}else{$('portraitHint').style.display='none';}}
-window.addEventListener('resize',portraitCheck);window.addEventListener('orientationchange',()=>setTimeout(portraitCheck,200));portraitCheck();
+$('introVideo').addEventListener('error',()=>{$('introVideo').style.display='none';});$('introVideo').play().catch(()=>{});\nwindow.addEventListener('resize',portraitCheck);window.addEventListener('orientationchange',()=>setTimeout(portraitCheck,200));portraitCheck();
 const canvas=$('fx'),ctx=canvas.getContext('2d');let w=0,h=0,dpr=1,particles=[],last=0;
 function resize(){dpr=Math.min(window.devicePixelRatio||1,1.7);w=innerWidth;h=innerHeight;canvas.width=Math.floor(w*dpr);canvas.height=Math.floor(h*dpr);canvas.style.width=w+'px';canvas.style.height=h+'px';ctx.setTransform(dpr,0,0,dpr,0,0);particles=Array.from({length:Math.min(95,Math.floor(w*h/14000))},()=>({x:Math.random()*w,y:Math.random()*h,z:Math.random()*.8+.2,r:Math.random()*1.5+.25,v:Math.random()*18+6,a:Math.random()*.55+.08}));}
 function draw(t){const dt=Math.min((t-last)/1000||0,.04);last=t;ctx.clearRect(0,0,w,h);let cx=w*.55,cy=h*.52;for(const p of particles){p.x-=p.v*dt*(page==='intro'?1.7:0.7);p.y+=Math.sin(t*.0004+p.x*.008)*dt*5;if(p.x<-5){p.x=w+5;p.y=Math.random()*h;}ctx.globalAlpha=p.a;ctx.fillStyle='#d7ffb0';ctx.beginPath();ctx.arc(p.x,p.y,p.r*p.z,0,Math.PI*2);ctx.fill();}ctx.globalAlpha=1;
