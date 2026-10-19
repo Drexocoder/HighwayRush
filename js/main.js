@@ -8,8 +8,8 @@ function showMenu(){if(finished)return;finished=true;clearInterval(loadTimer);se
 function startLoading(){const started=performance.now(),duration=6200;setLoad(0);$('loadHint').textContent='INITIALIZING / 2 VEHICLES';loadTimer=setInterval(()=>{const elapsed=performance.now()-started;setLoad(Math.min(96,(elapsed/duration)*96));$('loadHint').textContent=elapsed<1800?'PREPARING VEHICLE DATA':elapsed<3600?'INITIALIZING GRAPHICS':elapsed<5000?'SETTING UP THE GARAGE':'FINALIZING EXPERIENCE';if(elapsed>=duration){clearInterval(loadTimer);setLoad(100);$('loadHint').textContent='SYSTEMS READY';setTimeout(showMenu,700);}},80);setTimeout(()=>{if(!finished&&page==='intro'){clearInterval(loadTimer);setLoad(100);showMenu();}},9500);}
 
 const copy={drive:['FIRST DRIVE','The highway is still being built.','This build is the cinematic intro and main menu only. The playable driving scene, traffic, steering, speed effects and scoring are the next development phase.'],garage:['THE GARAGE','Opening vehicle showroom.','Choose a car in the interactive showroom.'],settings:['SETTINGS','Your setup, your style.','This preview adapts to your screen size and includes an optional sound toggle. Graphics, controls and gameplay settings will arrive with the driving build.'],about:['THE PROJECT','Built for the open road.','HIGHWAY RUSH is a mobile-first browser car driving game concept. This version focuses on a cinematic intro, responsive main menu and visual effects.']};
-function openModal(k){if(k==='garage'){openGarage();return;}const c=copy[k]||copy.about;$('modalLabel').textContent=c[0];$('modalTitle').textContent=c[1];$('modalText').textContent=c[2];$('modalShade').classList.add('open');page='modal';}
-function closeModal(){ $('modalShade').classList.remove('open');page='menu';}
+function openModal(k){if(k==='garage'){openGarage();return;}playUi('open');const c=copy[k]||copy.about;$('modalLabel').textContent=c[0];$('modalTitle').textContent=c[1];$('modalText').textContent=c[2];$('modalShade').classList.add('open');page='modal';}
+function closeModal(){playUi('close');$('modalShade').classList.remove('open');page='menu';}
 document.querySelectorAll('[data-modal]').forEach(b=>b.addEventListener('click',()=>openModal(b.dataset.modal)));
 $('closeModal').addEventListener('click',closeModal);$('modalOk').addEventListener('click',closeModal);$('modalShade').addEventListener('click',e=>{if(e.target===$('modalShade'))closeModal()});document.addEventListener('keydown',e=>{if(e.key==='Escape'){if($('garageShade').classList.contains('open'))closeGarage();else if(page==='modal')closeModal();}});
 function playClick(){try{audio=audio||new(window.AudioContext||window.webkitAudioContext)();if(audio.state==='suspended')audio.resume();let o=audio.createOscillator(),g=audio.createGain();o.type='triangle';o.frequency.setValueAtTime(440,audio.currentTime);o.frequency.exponentialRampToValueAtTime(660,audio.currentTime+.07);g.gain.setValueAtTime(.035,audio.currentTime);g.gain.exponentialRampToValueAtTime(.001,audio.currentTime+.12);o.connect(g);g.connect(audio.destination);o.start();o.stop(audio.currentTime+.13);}catch(e){}}
@@ -39,7 +39,20 @@ function unlockMusic(){
  if(musicPending){startMusic();}
 }
 
-function playUi(kind){if(!soundOn)return;try{audio=audio||new(window.AudioContext||window.webkitAudioContext)();if(audio.state==='suspended')audio.resume();const now=audio.currentTime;let o=audio.createOscillator(),g=audio.createGain();o.type=kind==='select'?'sine':'triangle';o.frequency.setValueAtTime(kind==='select'?620:430,now);o.frequency.exponentialRampToValueAtTime(kind==='select'?880:590,now+.075);g.gain.setValueAtTime(.045,now);g.gain.exponentialRampToValueAtTime(.001,now+.14);o.connect(g);g.connect(audio.destination);o.start();o.stop(now+.15);}catch(e){}}
+function playUi(kind){
+ if(!soundOn)return;
+ try{
+  audio=audio||new(window.AudioContext||window.webkitAudioContext)();
+  if(audio.state==='suspended')audio.resume();
+  const now=audio.currentTime;
+  const presets={click:[440,680,.09,'triangle'],select:[620,980,.17,'sine'],open:[260,740,.2,'sawtooth'],close:[620,300,.12,'triangle'],rev:[90,210,.55,'sawtooth']};
+  const p=presets[kind]||presets.click,o=audio.createOscillator(),g=audio.createGain();
+  o.type=p[3];o.frequency.setValueAtTime(p[0],now);o.frequency.exponentialRampToValueAtTime(p[1],now+p[2]);
+  g.gain.setValueAtTime(kind==='rev'?.055:.035,now);g.gain.exponentialRampToValueAtTime(.001,now+p[2]);
+  o.connect(g);g.connect(audio.destination);o.start(now);o.stop(now+p[2]+.02);
+  if(kind==='open'||kind==='rev'){const o2=audio.createOscillator(),g2=audio.createGain();o2.type='sine';o2.frequency.setValueAtTime(kind==='rev'?65:120,now);o2.frequency.exponentialRampToValueAtTime(kind==='rev'?42:45,now+p[2]);g2.gain.setValueAtTime(.025,now);g2.gain.exponentialRampToValueAtTime(.001,now+p[2]);o2.connect(g2);g2.connect(audio.destination);o2.start(now);o2.stop(now+p[2]+.02);}
+ }catch(e){}
+}
 $('soundBtn').addEventListener('click',async()=>{if(!soundOn){await startMusic();}else{stopMusic();}$('soundBtn').innerHTML=soundOn?'<i data-lucide="volume-2"></i>':'<i data-lucide="music-2"></i>';if(window.lucide)lucide.createIcons();});
 window.addEventListener('pointerdown',unlockMusic);window.addEventListener('keydown',unlockMusic);window.addEventListener('touchstart',unlockMusic,{passive:true});
 document.querySelectorAll('button').forEach(b=>{if(b.id!=='soundBtn')b.addEventListener('click',()=>playUi('click'));});
@@ -50,14 +63,28 @@ const carData={
  mustang:{name:'MUSTANG',tag:'GT',full:'FORD MUSTANG GT / 2024',label:'Ford Mustang GT',blurb:'American V8 muscle · interactive 3D model.',speed:'250 km/h',accel:'4.4 sec',power:'480 HP',drive:'RWD',handling:'★★★☆☆',model:'1592c80ca5cc4027a2a72a6fad784e1b'}
 };let selectedCar='gtr';
 function setCar(key){selectedCar=key;const d=carData[key];document.querySelectorAll('.carChoice').forEach(b=>b.classList.toggle('active',b.dataset.car===key));$('stageLabel').textContent=d.full;$('specName').innerHTML=d.name+' <span>'+d.tag+'</span>';$('specBlurb').textContent=d.blurb;$('specSpeed').textContent=d.speed;$('specAccel').textContent=d.accel;$('specPower').textContent=d.power;$('specDrive').textContent=d.drive;$('specHandling').textContent=d.handling;$('popupCarName').textContent=d.full;$('popupSpeed').textContent=d.speed;$('popupAccel').textContent=d.accel;$('popupPower').textContent=d.power;$('popupDrive').textContent=d.drive;$('carModelViewer').src='https://sketchfab.com/models/'+d.model+'/embed?autostart=1&ui_theme=dark&ui_controls=1&ui_infos=0&ui_inspector=0';$('selectCar').innerHTML='<i data-lucide="check-circle-2"></i> SELECT THIS CAR';if(window.lucide)lucide.createIcons();}
-function openGarage(){$('garageShade').classList.add('open');$('garageShade').setAttribute('aria-hidden','false');page='garage';setCar(selectedCar);$('specPopup').classList.remove('show');if(window.lucide)lucide.createIcons();}
-function closeGarage(){$('garageShade').classList.remove('open');$('garageShade').setAttribute('aria-hidden','true');page='menu';}
-$('garageClose').addEventListener('click',closeGarage);document.querySelectorAll('.carChoice').forEach(b=>b.addEventListener('click',()=>setCar(b.dataset.car)));
+function openGarage(){playUi('open');$('garageShade').classList.add('open');$('garageShade').setAttribute('aria-hidden','false');page='garage';setCar(selectedCar);$('specPopup').classList.remove('show');if(window.lucide)lucide.createIcons();}
+function closeGarage(){playUi('close');$('garageShade').classList.remove('open');$('garageShade').setAttribute('aria-hidden','true');page='menu';}
+$('garageClose').addEventListener('click',closeGarage);document.querySelectorAll('.carChoice').forEach(b=>b.addEventListener('click',()=>{setCar(b.dataset.car);playUi('rev');}));
 $('selectCar').addEventListener('click',()=>{playUi('select');$('garageToast').textContent=carData[selectedCar].label+' selected';setTimeout(()=>{$('garageToast').textContent='';},2200);});
 $('detailsToggle').addEventListener('click',()=>{$('specPopup').classList.toggle('show');});
 $('specPopupClose').addEventListener('click',()=>{$('specPopup').classList.remove('show');});
 
-async function tryLandscape(){try{if(!document.fullscreenElement&&document.documentElement.requestFullscreen)await document.documentElement.requestFullscreen();if(screen.orientation&&screen.orientation.lock)await screen.orientation.lock('landscape');}catch(e){}$('portraitHint').style.display='none';}
+async function tryLandscape(){
+ try{
+  if(!document.fullscreenElement&&document.documentElement.requestFullscreen)await document.documentElement.requestFullscreen({navigationUI:'hide'});
+  if(screen.orientation&&screen.orientation.lock)await screen.orientation.lock('landscape');
+ }catch(e){}
+ $('portraitHint').style.display='none';
+}
+let fullscreenAttempted=false;
+function mobileFullscreenOnGesture(){
+ if(fullscreenAttempted||!matchMedia('(max-width: 760px)').matches)return;
+ fullscreenAttempted=true;
+ // Browsers require a user gesture for fullscreen; attempt once on the first tap.
+ tryLandscape();
+}
+window.addEventListener('pointerdown',mobileFullscreenOnGesture,{once:true});
 $('rotateBtn').addEventListener('click',tryLandscape);
 function portraitCheck(){const mobile=matchMedia('(max-width:760px)').matches;const portrait=innerHeight>innerWidth;if(mobile&&portrait){$('portraitHint').style.display='flex';}else{$('portraitHint').style.display='none';}}
 $('introVideo').addEventListener('error',()=>{$('introVideo').style.display='none';});$('introVideo').play().catch(()=>{});
