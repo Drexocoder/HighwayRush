@@ -76,21 +76,56 @@ async function bootShowroom(){
   const turnGroup=new THREE.Group();turnGroup.position.y=.1;scene.add(turnGroup);
   const mat=(color,metalness=.3,roughness=.3)=>new THREE.MeshStandardMaterial({color,metalness,roughness});
   function box(parent,w,h,d,material,x,y,z){const mesh=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),material);mesh.position.set(x,y,z);mesh.castShadow=true;mesh.receiveShadow=true;parent.add(mesh);return mesh;}
+  // Replace blocky placeholder bodies with a smoother sculpted concept mesh.
   function buildCar(data){
-   const root=new THREE.Group(),body=mat(data.paint,.68,.22),dark=mat(0x101114,.3,.28),glass=new THREE.MeshPhysicalMaterial({color:0x17232d,metalness:.35,roughness:.12,clearcoat:1}),rubber=mat(0x090a0b,0,.82),alloy=mat(0xb9c0c5,.88,.2),lamp=new THREE.MeshStandardMaterial({color:0xe5f5ff,emissive:0xbadfff,emissiveIntensity:1.8}),tail=new THREE.MeshStandardMaterial({color:0xff233e,emissive:0xff001c,emissiveIntensity:1.5});
-   box(root,1.85,.34,3.95,body,0,.52,0);box(root,1.82,.2,.95,body,0,.47,1.48);box(root,1.8,.2,.8,body,0,.47,-1.55);
-   const cabin=box(root,1.43,.46,1.68,glass,0,.89,-.12);cabin.rotation.x=-.035;box(root,1.52,.1,1.7,body,0,.71,-.12);box(root,1.36,.05,.88,dark,0,1.13,-.2);
-   box(root,1.38,.04,.48,body,0,.71,1.05);box(root,.8,.13,.08,dark,0,.46,2);box(root,1.98,.06,.22,dark,0,.3,2.02);box(root,1.9,.09,.23,dark,0,.3,-2);
-   for(let i=0;i<3;i++)box(root,.035,.022,.28,dark,-.26+i*.26,.74,1.05);
-   for(const side of [-1,1]){box(root,.32,.075,.15,lamp,side*.68,.61,1.82);box(root,.4,.07,.08,tail,side*.57,.61,-1.9);box(root,.055,.035,.35,body,side*.92,.48,0);}
-   const wheels=[];for(const x of [-.96,.96])for(const z of [-1.28,1.3]){const wheel=new THREE.Group();wheel.position.set(x,.38,z);wheel.rotation.z=Math.PI/2;root.add(wheel);wheel.add(new THREE.Mesh(new THREE.CylinderGeometry(.38,.38,.21,32),rubber));wheel.add(new THREE.Mesh(new THREE.CylinderGeometry(.245,.245,.225,32),alloy));wheel.add(new THREE.Mesh(new THREE.CylinderGeometry(.075,.075,.23,20),dark));for(let i=0;i<5;i++){const spoke=box(wheel,.03,.03,.29,alloy,Math.cos(i*Math.PI*2/5)*.1,Math.sin(i*Math.PI*2/5)*.1,0);spoke.rotation.z=i*Math.PI*2/5;}wheels.push(wheel);}
-   if(data.style==='mustang'){for(const x of [-.34,.34])box(root,.08,.018,1.02,mat(0xe8e8e8),x,.73,1.02);box(root,1.48,.11,.08,dark,0,.48,2.06);for(const x of [-.62,-.2,.2,.62])box(root,.18,.04,.08,tail,x,.61,-1.96);box(root,1.65,.06,.12,body,0,1.12,-.78);}
-   else{box(root,1.55,.08,.12,dark,0,1.12,-1.72);box(root,.07,.24,.1,body,-.64,.99,-1.72);box(root,.07,.24,.1,body,.64,.99,-1.72);for(const x of [-.63,.63]){const lampRing=new THREE.Mesh(new THREE.TorusGeometry(.08,.022,8,24),tail);lampRing.position.set(x,.62,-2);root.add(lampRing);}}
-   root.userData.wheels=wheels;return root;
+   const root=new THREE.Group(),bodyMat=new THREE.MeshPhysicalMaterial({color:data.paint,metalness:.62,roughness:.22,clearcoat:1,clearcoatRoughness:.12}),glass=new THREE.MeshPhysicalMaterial({color:0x111b23,metalness:.28,roughness:.12,clearcoat:1,transparent:true,opacity:.94}),rubber=new THREE.MeshStandardMaterial({color:0x08090b,roughness:.84}),alloy=new THREE.MeshStandardMaterial({color:0xaeb8bf,metalness:.9,roughness:.22}),dark=new THREE.MeshStandardMaterial({color:0x080a0c,metalness:.3,roughness:.32}),lamp=new THREE.MeshStandardMaterial({color:0xe6f4ff,emissive:0x9fcfff,emissiveIntensity:2}),tail=new THREE.MeshStandardMaterial({color:0xff1b36,emissive:0xff001b,emissiveIntensity:2});
+   function custom(points,depth,material){const shape=new THREE.Shape();shape.moveTo(points[0][0],points[0][1]);for(let i=1;i<points.length;i++)shape.lineTo(points[i][0],points[i][1]);shape.closePath();const geo=new THREE.ExtrudeGeometry(shape,{depth,bevelEnabled:true,bevelSegments:3,steps:1,bevelSize:.035,bevelThickness:.025,curveSegments:8});geo.translate(0,0,-depth/2);const mesh=new THREE.Mesh(geo,material);mesh.castShadow=true;mesh.receiveShadow=true;root.add(mesh);return mesh;}
+   // Longitudinal body profile extruded across the car width: hood, roofline, rear haunches.
+   custom([[-2.05,.34],[-1.9,.56],[-1.35,.7],[-.88,.78],[-.53,1.08],[.18,1.13],[.65,.88],[1.45,.72],[1.95,.58],[2.02,.35]],1.7,bodyMat);
+   // Sculpted upper cabin, windshield, rear glass, roof and side window silhouettes.
+   custom([[-.95,.77],[-.5,1.14],[.25,1.16],[.77,.82]],1.27,glass);
+   custom([[-.56,1.12],[-.44,1.17],[.2,1.19],[.32,1.15]],1.2,bodyMat);
+   for(const side of [-1,1]){
+    custom([[-.86,.79],[-.45,1.09],[-.04,1.09],[-.04,.86]],.025,glass).position.x=side*.66;
+    custom([[.04,.86],[.04,1.09],[.22,1.09],[.65,.81]],.025,glass).position.x=side*.66;
+    const skirt=new THREE.Mesh(new THREE.BoxGeometry(1.28,.075,.12),dark);skirt.position.set(side*.83,.37,0);root.add(skirt);
+    const mirror=new THREE.Mesh(new THREE.SphereGeometry(.095,12,8),bodyMat);mirror.scale.set(1,.55,1.4);mirror.position.set(side*.92,.78,.42);root.add(mirror);
+   }
+   // Front splitter, grille, rear diffuser, hood vents and badge.
+   const part=(w,h,d,material,x,y,z)=>{const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),material);m.position.set(x,y,z);m.castShadow=true;root.add(m);return m;};
+   part(1.8,.065,.24,dark,0,.31,1.94);part(1.25,.15,.055,dark,0,.43,1.91);part(1.95,.07,.24,dark,0,.29,-1.91);
+   for(const x of [-.38,-.25,-.12,.12,.25,.38])part(.035,.018,.28,dark,x,.72,1.25);
+   part(.32,.035,.03,alloy,0,.57,1.97);
+   for(const side of [-1,1]){
+    const head=new THREE.Mesh(new THREE.ShapeGeometry((()=>{const s=new THREE.Shape();s.moveTo(0,0);s.lineTo(.34,.035);s.lineTo(.25,.105);s.lineTo(.03,.09);s.closePath();return s;})()),lamp);head.position.set(side*.48,.58,1.88);head.rotation.y=side*.12;root.add(head);
+    part(.32,.07,.035,tail,side*.55,.58,-1.88);
+    const fog=part(.11,.04,.025,lamp,side*.72,.42,1.94);
+   }
+   // Wheel arches, tires, rotors and five-spoke alloys.
+   for(const x of [-.88,.88])for(const z of [-1.22,1.28]){
+    const arch=new THREE.Mesh(new THREE.TorusGeometry(.39,.055,8,36,Math.PI),dark);arch.rotation.z=Math.PI;arch.position.set(x,.39,z);root.add(arch);
+    const wheel=new THREE.Group();wheel.position.set(x,.39,z);wheel.rotation.z=Math.PI/2;root.add(wheel);
+    wheel.add(new THREE.Mesh(new THREE.CylinderGeometry(.34,.34,.2,40),rubber));
+    wheel.add(new THREE.Mesh(new THREE.CylinderGeometry(.25,.25,.215,40),alloy));
+    wheel.add(new THREE.Mesh(new THREE.CylinderGeometry(.19,.19,.22,32),dark));
+    wheel.add(new THREE.Mesh(new THREE.CylinderGeometry(.07,.07,.23,24),alloy));
+    for(let i=0;i<5;i++){const spoke=new THREE.Mesh(new THREE.BoxGeometry(.045,.29,.025),alloy);spoke.position.set(Math.cos(i*Math.PI*2/5)*.105,Math.sin(i*Math.PI*2/5)*.105,0);spoke.rotation.z=i*Math.PI*2/5;wheel.add(spoke);}
+    const rotor=new THREE.Mesh(new THREE.CylinderGeometry(.17,.17,.02,32),matRotor());rotor.position.z=.105;wheel.add(rotor);
+   }
+   function matRotor(){return new THREE.MeshStandardMaterial({color:0x596168,metalness:.85,roughness:.3});}
+   if(data.style==='mustang'){for(const x of [-.32,.32])part(.085,.018,.82,alloy,x,.747,1.03);part(1.6,.09,.1,bodyMat,0,1.08,-.8);for(const x of [-.68,-.45,-.22,.22,.45,.68])part(.1,.045,.035,tail,x,.59,-1.92);}
+   else{part(1.48,.07,.1,dark,0,1.14,-1.65);for(const x of [-.61,.61]){const r=new THREE.Mesh(new THREE.TorusGeometry(.085,.024,8,28),tail);r.position.set(x,.58,-1.94);root.add(r);}}
+   // Interior glimpse through glass: dashboard, seats, steering wheel and center console.
+   const cabinDark=new THREE.MeshStandardMaterial({color:0x151719,roughness:.75});
+   part(.98,.09,.48,cabinDark,0,.86,-.08);
+   for(const x of [-.34,.34]){const seat=new THREE.Mesh(new THREE.BoxGeometry(.28,.24,.3),cabinDark);seat.position.set(x,.88,-.38);seat.rotation.x=-.12;root.add(seat);const back=new THREE.Mesh(new THREE.BoxGeometry(.26,.31,.09),cabinDark);back.position.set(x,1.02,-.52);back.rotation.x=-.12;root.add(back);}
+   const steering=new THREE.Mesh(new THREE.TorusGeometry(.09,.014,8,24),alloy);steering.position.set(-.35,.91,.25);steering.rotation.y=.3;root.add(steering);
+   root.scale.setScalar(.95);root.userData.wheels=root.children.filter(o=>o.type==='Group');return root;
   }
   carMeshes.gtr=buildCar(carData.gtr);carMeshes.mustang=buildCar(carData.mustang);Object.entries(carMeshes).forEach(([key,car])=>{car.visible=key===selectedCar;turnGroup.add(car);});
+  const galleryShots=['FRONT THREE-QUARTER','SIDE PROFILE','REAR DETAIL','COCKPIT'];let galleryIndex=0;
   const resize=()=>{const r=mount.getBoundingClientRect();if(!r.width||!r.height)return;camera.aspect=r.width/r.height;camera.updateProjectionMatrix();renderer.setSize(r.width,r.height,false);};new ResizeObserver(resize).observe(mount);resize();
-  let last=0;const render=t=>{const dt=Math.min((t-last)/1000||0,.04);last=t;turnGroup.rotation.y+=dt*.24;const car=carMeshes[selectedCar];if(car)car.position.y=.035+Math.sin(t*.0013)*.012;renderer.render(scene,camera);requestAnimationFrame(render);};requestAnimationFrame(render);showroom={scene,camera,renderer,turnGroup};
+  let last=0;const render=t=>{const dt=Math.min((t-last)/1000||0,.04);last=t;turnGroup.rotation.y+=dt*($('carStage')?.classList.contains('galleryMode')?.08:.24);const car=carMeshes[selectedCar];if(car){car.position.y=.035+Math.sin(t*.0013)*.012;for(const wheel of car.userData.wheels||[])wheel.rotation.x+=dt*.3;}renderer.render(scene,camera);requestAnimationFrame(render);};requestAnimationFrame(render);showroom={scene,camera,renderer,turnGroup};
  }catch(e){mount.innerHTML='<div class="modelFallback"><b>SHOWROOM UNAVAILABLE</b><span>Refresh to reload the 3D renderer.</span></div>';console.error(e);}
 }
 function setCar(key){selectedCar=key;const d=carData[key];document.querySelectorAll('[data-car]').forEach(b=>b.classList.toggle('active',b.dataset.car===key));$('stageLabel').textContent=d.full;$('detailBrand').textContent=d.brand;$('specName').innerHTML=d.name+' <span>'+d.tag+'</span>';$('specBlurb').textContent=d.blurb;$('specSpeed').textContent=d.speed;$('specAccel').textContent=d.accel;$('specPower').textContent=d.power;$('specDrive').textContent=d.drive;$('specHandling').textContent=d.handling;$('paintName').textContent=d.paintName;$('popupCarName').textContent=d.full;$('popupSpeed').textContent=d.speed;$('popupAccel').textContent=d.accel;$('popupPower').textContent=d.power;$('popupDrive').textContent=d.drive;const dot=document.querySelector('.paintDot');if(dot)dot.style.background='#'+d.paint.toString(16).padStart(6,'0');Object.entries(carMeshes).forEach(([k,car])=>car.visible=k===key);document.querySelectorAll('.collectionCard').forEach(c=>c.classList.toggle('active',c.dataset.car===key));$('detailVehicleIndex').textContent=(key==='gtr'?'01':'02')+' / 02';$('selectCar').innerHTML='<i data-lucide="check-circle-2"></i> SELECT THIS CAR';if(window.lucide)lucide.createIcons();}
@@ -99,7 +134,7 @@ function showCollection(){$('garageDetail').hidden=true;$('carCollection').hidde
 function openGarage(){playUi('open');$('garageShade').classList.add('open');$('garageShade').setAttribute('aria-hidden','false');page='garage';showCollection();setCar(selectedCar);if(window.lucide)lucide.createIcons();}
 function closeGarage(){playUi('close');$('garageShade').classList.remove('open');$('garageShade').setAttribute('aria-hidden','true');page='menu';}
 $('garageClose').addEventListener('click',closeGarage);document.querySelectorAll('.collectionCard').forEach(b=>b.addEventListener('click',()=>{playUi('select');openCarDetail(b.dataset.car);}));$('backToCollection').addEventListener('click',()=>{playUi('close');showCollection();});
-$('selectCar').addEventListener('click',()=>{playUi('select');$('garageToast').textContent=carData[selectedCar].label+' selected';setTimeout(()=>{$('garageToast').textContent='';},2200);});['carSettingsBtn','testDriveBtn','galleryBtn'].forEach(id=>$(id).addEventListener('click',()=>{playUi('click');$('garageToast').textContent=id==='testDriveBtn'?'TEST DRIVE IS NEXT ON THE ROADMAP':id==='galleryBtn'?'GALLERY MODE COMING NEXT':'CAR SETTINGS COMING NEXT';}));
+$('selectCar').addEventListener('click',()=>{playUi('select');$('garageToast').textContent=carData[selectedCar].label+' selected';setTimeout(()=>{$('garageToast').textContent='';},2200);});$('galleryBtn').addEventListener('click',()=>{playUi('select');$('garageToast').textContent='GALLERY MODE';$('carStage').classList.toggle('galleryMode');$('stageHint').textContent=$('carStage').classList.contains('galleryMode')?'GALLERY · DRAG TO ORBIT':'AUTO ROTATION · DRAG TO ORBIT';});$('carSettingsBtn').addEventListener('click',()=>{playUi('click');$('garageToast').textContent='PAINT / WHEELS / CAMERA SETTINGS COMING NEXT';});$('testDriveBtn').addEventListener('click',()=>{playUi('click');$('garageToast').textContent='TEST DRIVE IS NEXT ON THE ROADMAP';});
 $('detailsToggle').addEventListener('click',()=>{$('specPopup').classList.toggle('show');});
 $('specPopupClose').addEventListener('click',()=>{$('specPopup').classList.remove('show');});
 
