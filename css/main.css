@@ -59,3 +59,42 @@
 @keyframes turntableSpin{from{rotate:0deg}to{rotate:360deg}}
 @media(max-width:900px){.garageBody{grid-template-columns:1fr;grid-template-rows:auto minmax(270px,1fr) auto}.garageList{grid-column:auto;grid-row:auto}.carStage{grid-column:auto;grid-row:auto}.specPanel{grid-column:auto;grid-row:auto;max-width:none;display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px}.specTop h3{font-size:22px}.specRows{grid-column:auto;grid-row:auto}.specDisclaimer{grid-column:auto}.selectCar{grid-column:1/-1}.garageTip{display:none}}
 @media(max-width:520px){.garageBody{display:flex;flex-direction:column}.carStage{height:36svh;min-height:210px;flex:none}.garageList{order:2;flex-direction:row}.carChoice{min-width:0;gap:7px;padding:9px 7px}.carChoice b{font-size:9px}.carChoice small{font-size:6px}.specPanel{order:3;display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:10px}.specTop h3{font-size:21px}.specTop p{font-size:9px}.specRows{display:grid;grid-template-columns:1fr 1fr;column-gap:10px}.specRow{padding:7px 0}.specDisclaimer{margin:0}.selectCar{margin-top:0}.specPopup{top:95px;right:12px;width:min(245px,calc(100vw - 24px))}.turntableOuter{width:92%}.turntableRing{width:81%}.turntableDisc{width:74%}}
+
+/* Minimal copy, immersive mobile framing and responsive premium UI polish */
+.brandSub,.version,.footer,.overline,.introCopy,.menuKicker,.menuDescription,.optionSub,.carInfo{display:none!important}
+.introContent{left:clamp(22px,8vw,110px);width:min(600px,84vw);top:48%}
+.heroTitle{font-size:clamp(68px,12vw,160px);letter-spacing:-.09em}
+.loadingArea{margin-top:28px;width:min(320px,76vw)}
+.loadFoot{justify-content:flex-end}
+.menuGrid{grid-template-columns:minmax(270px,400px) 1fr;padding-left:clamp(24px,8vw,120px)}
+.menuTitle{font-size:clamp(50px,7vw,94px);margin:0 0 26px}
+.menuOptions{max-width:360px}
+.menuOption{min-height:58px}
+@media(max-width:760px){
+ html,body,#app{width:100%;height:100%;height:100dvh;min-height:100dvh}
+ #app{inset:0;min-height:100dvh}
+ .header{top:calc(12px + var(--safe-top));left:15px;right:15px}
+ .introContent{left:22px;top:47%;width:calc(100% - 44px);transform:translateY(-45%)}
+ .heroTitle{font-size:clamp(58px,17vw,100px);line-height:.8}
+ .loadingArea{width:min(290px,82vw);margin-top:25px}
+ .menuGrid{padding:calc(74px + var(--safe-top)) 16px calc(20px + var(--safe-bottom));align-items:center;justify-content:center}
+ .menuPanel{width:100%;max-width:440px}
+ .menuTitle{font-size:clamp(44px,13vw,72px);margin-bottom:25px}
+ .menuOptions{grid-template-columns:1fr 1fr;max-width:none;gap:8px}
+ .menuOption{min-height:54px;padding:10px;gap:8px}
+ .menuOption.primaryOption{grid-column:1/-1}
+ .optionTitle{font-size:9px}
+ .optionSub{display:none!important}
+ .headerRight .status{display:none}
+ .garageShell{min-height:100dvh}
+}
+@media(max-height:520px) and (orientation:landscape){
+ .menuGrid{padding:62px 8vw 16px;align-items:center}
+ .menuTitle{font-size:clamp(34px,8vh,56px);margin-bottom:12px}
+ .menuOptions{grid-template-columns:1fr 1fr;gap:5px}
+ .menuOption{min-height:40px;padding:7px}
+ .menuOption.primaryOption{grid-column:1/-1}
+ .introContent{top:50%}
+ .heroTitle{font-size:clamp(45px,12vh,78px)}
+ .loadingArea{margin-top:18px}
+}
