@@ -108,3 +108,37 @@
 .garageArchitecture{z-index:0}
 .stageGlow{pointer-events:none}
 @media(prefers-reduced-motion:reduce){.turntableOuter,.turntableRing{animation-duration:80s!important}}
+
+/* Horizon-inspired garage refresh: original layout, crimson performance UI. */
+.garageShade{background:radial-gradient(ellipse at 60% 38%,#272023 0%,#111012 46%,#070708 100%);backdrop-filter:blur(14px)}
+.garageShade:before{opacity:.28;background:linear-gradient(120deg,#e3193b20 0 18%,transparent 18% 100%),repeating-linear-gradient(0deg,transparent 0 68px,#ffffff07 69px,transparent 71px)}
+.garageShell{padding:calc(18px + var(--safe-top)) clamp(14px,3vw,44px) calc(14px + var(--safe-bottom))}
+.garageHeader{border-bottom:1px solid #ffffff1c;padding-bottom:13px}
+.garageHeader h2 span{color:#ff3150}
+.garageEyebrow,.specEyebrow,.carNumber{color:#ff4560}
+.garageBody{grid-template-columns:minmax(205px,.82fr) minmax(340px,1.8fr) minmax(190px,.7fr);gap:14px;padding-top:15px}
+.garageList{background:#101012b8;border:1px solid #ffffff18;padding:12px;gap:7px}
+.carChoice{border-radius:2px;background:linear-gradient(100deg,#ffffff0b,#ffffff03);border-color:#ffffff18;min-height:55px}
+.carChoice.active,.carChoice:hover{background:linear-gradient(100deg,#ed173522,#ffffff06);border-color:#ff3150}
+.carChoice b{font-size:11px;letter-spacing:.015em}.carChoice small{color:#a9a5a7}
+.carChoice svg{color:#bcb8ba}
+.garageTip{padding:8px 2px;color:#a39da0}
+.carStage{min-height:360px;border:1px solid #ffffff18;background:radial-gradient(ellipse at 50% 56%,#393235 0%,#191719 42%,#09090a 82%);box-shadow:inset 0 0 80px #000b,0 22px 60px #0008}
+#carModelViewer{z-index:2;position:absolute;inset:0;width:100%;height:100%;border:0;background:transparent}
+.stageLabel{border-left:2px solid #ff3150;background:#0b090bd9;color:#f0e9eb}
+.stageHint{background:#0b090bd9;color:#ff8b9b}
+.turntableOuter{border-color:#ff315055;box-shadow:0 0 0 12px #ffffff04,0 0 0 13px #ffffff08,0 0 40px #ff315012}
+.turntableRing{border-color:#ff315077}
+.garageLight{background:#ff315055;box-shadow:0 0 35px 8px #ff315022}
+.turntableDisc{background:radial-gradient(circle,#343033 0%,#242124 55%,#111012 70%,#080809 72%)}
+.stageGlow{background:#ff31500c}
+.specPanel{max-width:none;border-color:#ffffff20;background:#100f11e8;padding:15px}
+.specTop h3 span{color:#ff4560}
+.specRow{border-bottom-color:#ffffff1c}
+.selectCar{background:#f51d40;color:white;min-height:43px}
+.selectCar:hover{background:#ff4260}
+.garageToast{color:#ff6a7e}
+.specPopup{border-color:#ff315077}
+.specPopup .specEyebrow{color:#ff4560}
+@media(max-width:900px){.garageBody{grid-template-columns:1fr 1.6fr;grid-template-rows:minmax(260px,1fr) auto}.garageList{background:#101012b8;border:1px solid #ffffff18;padding:8px}.carStage{min-height:300px}.specPanel{background:#100f11e8}.selectCar{grid-column:1/-1}}
+@media(max-width:520px){.garageBody{gap:10px}.carStage{height:34svh;min-height:215px}.garageList{padding:7px}.carChoice{background:#ffffff08}.specPanel{padding:10px}.garageHeader h2{font-size:25px}.turntableOuter{width:92%}.turntableRing{width:81%}.turntableDisc{width:74%}}
