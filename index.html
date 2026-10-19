@@ -37,23 +37,23 @@
 
 <div class="garageShade" id="garageShade" aria-hidden="true">
  <div class="garageShell">
-  <header class="garageHeader"><div><div class="garageEyebrow">HIGHWAY RUSH / VEHICLE SELECT</div><h2>THE <span>GARAGE.</span></h2></div><button class="iconButton" id="garageClose" aria-label="Close garage"><i data-lucide="x"></i></button></header>
-  <div class="garageBody">
-   <aside class="garageList">
-    <button class="carChoice active" data-car="gtr"><span class="carNumber">01</span><span><b>Nissan GT-R R35</b><small>THE GODZILLA</small></span><i data-lucide="chevron-right"></i></button>
-    <button class="carChoice" data-car="mustang"><span class="carNumber">02</span><span><b>Ford Mustang GT</b><small>AMERICAN MUSCLE</small></span><i data-lucide="chevron-right"></i></button>
-    <div class="garageTip"><i data-lucide="move-horizontal"></i> DRAG TO ROTATE · SCROLL TO ZOOM</div>
-   </aside>
-   <section class="carStage" id="carStage" aria-label="Interactive car preview">
-    <div class="garageArchitecture"><div class="garageBeam beamA"></div><div class="garageBeam beamB"></div><div class="garageLight"></div><div class="turntableOuter"></div><div class="turntableRing"></div><div class="turntableDisc"></div><div class="floorReflection"></div></div><div class="stageGlow"></div><div class="stageGrid"></div><div class="stageLabel" id="stageLabel">NISSAN GT-R R35</div>
-    <iframe id="carModelViewer" title="Nissan GT-R R35 and Ford Mustang GT 3D model" allow="autoplay; fullscreen; xr-spatial-tracking" allowfullscreen loading="eager" src="https://sketchfab.com/models/51c912a8310c4e00a82ad7673d84228a/embed?autostart=1&amp;autospin=0.15&amp;ui_theme=dark&amp;ui_controls=0&amp;ui_infos=0&amp;ui_inspector=0&amp;ui_watermark=0"></iframe>
-    <div class="stageHint">3D SHOWROOM</div><button class="stageControl detailsToggle" id="detailsToggle" aria-label="Vehicle details" title="Vehicle details"><i data-lucide="info"></i></button>
-   </section>
-   <aside class="specPanel"><div class="specTop"><div class="specEyebrow">VEHICLE PROFILE</div><h3 id="specName">GT-R <span>R35</span></h3><p id="specBlurb">Precision-built Japanese performance coupe.</p></div>
-    <div class="specRows"><div class="specRow"><span>TOP SPEED</span><b id="specSpeed">315 km/h</b></div><div class="specRow"><span>0–100 km/h</span><b id="specAccel">2.9 sec</b></div><div class="specRow"><span>POWER</span><b id="specPower">565 HP</b></div><div class="specRow"><span>DRIVETRAIN</span><b id="specDrive">AWD</b></div><div class="specRow"><span>HANDLING</span><b id="specHandling">★★★★☆</b></div></div>
-    <div class="specDisclaimer">SPECIFICATIONS ARE APPROXIMATE</div><button class="selectCar" id="selectCar"><i data-lucide="check-circle-2"></i> SELECT THIS CAR</button><div class="garageToast" id="garageToast" aria-live="polite"></div>
-   </aside>
-  </div>
+  <header class="garageHeader"><div><div class="garageEyebrow">HIGHWAY RUSH / COLLECTION</div><h2 id="garageHeading">CHOOSE YOUR <span>RIDE.</span></h2></div><div class="garageHeaderActions"><span class="garageCounter">01 / 02 CARS</span><button class="iconButton" id="garageClose" aria-label="Close garage"><i data-lucide="x"></i></button></div></header>
+  <section class="carCollection" id="carCollection" aria-label="Car collection">
+   <div class="collectionIntro"><span>YOUR COLLECTION</span><p>Pick a machine to enter its showroom.</p></div>
+   <div class="collectionGrid">
+    <button class="collectionCard active" data-car="gtr"><span class="collectionIndex">01 / SPORT</span><div class="carThumb carThumbGtr"><span class="thumbLight"></span><span class="thumbCarBody"></span><span class="thumbCabin"></span><span class="thumbWheel wheelA"></span><span class="thumbWheel wheelB"></span></div><span class="collectionMeta"><span><b>NISSAN GT-R</b><small>R35 · TWIN-TURBO AWD</small></span><i data-lucide="arrow-up-right"></i></span><span class="collectionStats"><span>565 HP</span><span>2.9 SEC</span><span>315 KM/H</span></span></button>
+    <button class="collectionCard" data-car="mustang"><span class="collectionIndex">02 / MUSCLE</span><div class="carThumb carThumbMustang"><span class="thumbLight"></span><span class="thumbCarBody"></span><span class="thumbCabin"></span><span class="thumbWheel wheelA"></span><span class="thumbWheel wheelB"></span></div><span class="collectionMeta"><span><b>FORD MUSTANG GT</b><small>V8 · REAR-WHEEL DRIVE</small></span><i data-lucide="arrow-up-right"></i></span><span class="collectionStats"><span>480 HP</span><span>4.4 SEC</span><span>250 KM/H</span></span></button>
+   </div>
+   <div class="collectionFooter"><span><i data-lucide="circle-check"></i> SELECT A VEHICLE</span><span>HIGHWAY RUSH / GARAGE</span></div>
+  </section>
+  <section class="garageDetail" id="garageDetail" aria-label="Selected car showroom" hidden>
+   <div class="detailTopline"><button class="backToCollection" id="backToCollection"><i data-lucide="arrow-left"></i> ALL CARS</button><span class="detailVehicleIndex" id="detailVehicleIndex">01 / 02</span></div>
+   <div class="detailLayout">
+    <aside class="detailMenu"><div class="detailMenuTitle">GARAGE</div><button class="detailMenuItem active"><span>01</span> Car Overview <i data-lucide="chevron-right"></i></button><button class="detailMenuItem" id="carSettingsBtn"><span>02</span> Car Settings <i data-lucide="chevron-right"></i></button><button class="detailMenuItem" id="testDriveBtn"><span>03</span> Test Drive <i data-lucide="chevron-right"></i></button><button class="detailMenuItem" id="galleryBtn"><span>04</span> Gallery <i data-lucide="chevron-right"></i></button><div class="detailMenuFoot">VEHICLE COLLECTION<br>HIGHWAY RUSH</div></aside>
+    <section class="carStage" id="carStage" aria-label="Interactive 3D car showroom"><div class="garageArchitecture"><div class="garageBeam beamA"></div><div class="garageBeam beamB"></div><div class="garageLight"></div><div class="turntableOuter"></div><div class="turntableRing"></div><div class="turntableDisc"></div><div class="floorReflection"></div></div><div class="stageGlow"></div><div class="stageGrid"></div><div class="stageLabel" id="stageLabel">NISSAN GT-R R35</div><div id="carModelViewer" role="img" aria-label="Live 3D car preview"></div><div class="stageHint">AUTO ROTATION · DRAG TO ORBIT</div><button class="stageControl detailsToggle" id="detailsToggle" aria-label="Vehicle details"><i data-lucide="info"></i></button></section>
+    <aside class="detailSpecs"><div class="detailBrand" id="detailBrand">NISSAN</div><h3 id="specName">GT-R <span>R35</span></h3><p id="specBlurb">Precision-built Japanese performance coupe.</p><div class="detailPaint"><span class="paintDot"></span><span id="paintName">CRIMSON RED</span></div><div class="specRows"><div class="specRow"><span>MAX SPEED</span><b id="specSpeed">315 km/h</b></div><div class="specRow"><span>0–100 KM/H</span><b id="specAccel">2.9 sec</b></div><div class="specRow"><span>MAX POWER</span><b id="specPower">565 HP</b></div><div class="specRow"><span>DRIVETRAIN</span><b id="specDrive">AWD</b></div><div class="specRow"><span>HANDLING</span><b id="specHandling">★★★★☆</b></div></div><div class="detailBottom"><div class="specDisclaimer">SIMULATED VEHICLE SPECIFICATIONS</div><button class="selectCar" id="selectCar"><i data-lucide="check-circle-2"></i> SELECT THIS CAR</button><div class="garageToast" id="garageToast" aria-live="polite"></div></div></aside>
+   </div>
+  </section>
  </div>
  <div class="specPopup" id="specPopup" role="dialog" aria-label="Vehicle details"><button class="specPopupClose" id="specPopupClose" aria-label="Close details"><i data-lucide="x"></i></button><div class="specEyebrow">VEHICLE DETAILS</div><h3 id="popupCarName">GT-R R35</h3><div class="specPopupRows"><span>TOP SPEED <b id="popupSpeed">315 km/h</b></span><span>0–100 KM/H <b id="popupAccel">2.9 sec</b></span><span>POWER <b id="popupPower">565 HP</b></span><span>DRIVETRAIN <b id="popupDrive">AWD</b></span></div></div>
 </div>
