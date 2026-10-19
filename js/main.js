@@ -125,7 +125,7 @@ async function bootShowroom(){
    root.scale.setScalar(1.0);root.userData.wheels=wheels;return root;
   }
   carMeshes.gtr=createCar(carData.gtr);carMeshes.mustang=createCar(carData.mustang);
-  Object.values(carMeshes).forEach((car,i)=>{car.visible=i===0;turnGroup.add(car);});
+  Object.entries(carMeshes).forEach(([key,car])=>{car.visible=key===selectedCar;turnGroup.add(car);});
   const shadow=new THREE.Mesh(new THREE.CircleGeometry(1.65,48),new THREE.MeshBasicMaterial({color:0x000000,transparent:true,opacity:.55}));shadow.rotation.x=-Math.PI/2;shadow.scale.set(1.05,.58,1);shadow.position.y=.012;turnGroup.add(shadow);
   const resize=()=>{const r=mount.getBoundingClientRect();if(!r.width||!r.height)return;camera.aspect=r.width/r.height;camera.updateProjectionMatrix();renderer.setSize(r.width,r.height,false);};new ResizeObserver(resize).observe(mount);resize();
   let last=0;const render=(t)=>{const dt=Math.min((t-last)/1000||0,.04);last=t;turnGroup.rotation.y+=dt*.32;const car=carMeshes[selectedCar];if(car){car.position.y=.04+Math.sin(t*.0013)*.012;car.rotation.y=0;}renderer.render(scene,camera);requestAnimationFrame(render);};requestAnimationFrame(render);
