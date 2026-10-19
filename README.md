@@ -1,32 +1,36 @@
-# Matter Playground — Phase 01
+# Matter Playground — Phase 02
 
-A lightweight browser-based material sandbox. Paint materials into the world and watch simple cellular physics and reactions unfold.
+A full-screen, landscape-first browser material sandbox with touch-friendly controls and reactive materials.
 
-## Run it
+## Play
 
-Open `index.html` in a modern browser. No build step, package manager, or external assets required.
+- Live site: https://matter-playground.vercel.app
+- Source: https://github.com/Drexocoder/Cricketwalatest/blob/main/index.html
 
-## Phase 01 features
+## Phase 02
 
-- Sand, water, stone, wood, fire, plants, oil, steam and eraser
-- Cellular movement for granular, liquid and gas materials
-- Fire propagation and simple plant growth
-- Brush sizing, drag painting, right-click erase
-- Rainfall, ignition, garden and eruption quick experiments
-- Pause/resume and adjustable simulation speed
-- Live particle count, FPS, reaction count and world age
-- Responsive interface for desktop and mobile
+- Full-screen simulation canvas; no permanent sidebars or dashboard layout
+- Landscape-first layout with compact floating controls and a horizontal material dock
+- Touch + mouse painting, continuous strokes, pointer capture and right-click erase
+- Corrected cell processing so particles do not get updated repeatedly after a swap
+- 13 materials: sand, water, stone, wood, fire, plant, oil, acid, lava, ice, steam, smoke and eraser
+- Phase 2 interactions: acid dissolves selected solids; lava heats materials and cools into rock; fire spreads and turns into smoke; ice melts; steam rises and can condense
+- Quick experiments for rainfall, ignition and plant growth
+- Pause/resume, world reset, brush size and 1×–4× simulation speed
+- Compact telemetry for particle count, FPS and reactions
+- 3D-style tactile buttons, selection feedback, entrance animations and smooth UI transitions
+- Respects `prefers-reduced-motion`; portrait mode offers a rotate hint but can be continued
 
 ## Controls
 
-- Select a material from the left library
 - Drag on the world to paint
-- Right-click to erase
+- Tap a material in the bottom dock to select it
+- Right-click to erase (desktop)
 - Space: pause/resume
-- Number keys 1–8: select materials
-- Escape: select eraser
+- Keys 1–9: quick material selection; Escape: eraser
+- Brush slider: change stroke size
+- Speed button: cycle 1× to 4×
 
-## Scope note
+## Technical notes
 
-This is the first playable prototype, not a full fluid-dynamics engine. Phase 01 prioritizes an interactive, lightweight foundation that can be expanded with better fluid simulation, temperature, material discovery, save/load and 2.5D visual polish.
-
+Single-file HTML/CSS/JavaScript; no build step, external assets, or animation library required. The simulation is a lightweight cellular sandbox rather than a scientific fluid-dynamics engine. Phase 2 prioritizes reliable input, more materials, a smaller interface and mobile performance.
