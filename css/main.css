@@ -208,3 +208,40 @@
 [hidden]{display:none!important}
 @media(max-width:900px){.garageShell{padding:14px 16px}.collectionGrid{gap:12px}.detailLayout{grid-template-columns:145px minmax(0,1fr);height:auto;max-height:none}.detailMenu{grid-column:1;grid-row:1}.carStage{grid-column:2;grid-row:1;min-height:300px}.detailSpecs{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:12px}.detailSpecs .specRows{grid-column:2;grid-row:1/3}.detailBottom{grid-column:1/-1}.detailMenuFoot{font-size:6px}}
 @media(max-width:560px){.garageHeader h2{font-size:25px}.garageCounter{display:none}.carCollection{padding:20px 0}.collectionGrid{grid-template-columns:1fr;gap:12px}.carThumb{height:155px}.collectionIntro{align-items:start;flex-direction:column;gap:7px}.collectionIntro p{font-size:10px}.collectionStats{gap:14px}.collectionFooter{font-size:6px}.garageDetail{padding-top:8px}.detailLayout{display:flex;flex-direction:column;gap:10px}.detailMenu{display:grid;grid-template-columns:1fr 1fr;padding:10px;gap:6px}.detailMenuTitle{grid-column:1/-1;font-size:20px;padding-bottom:8px}.detailMenuItem{min-height:37px;font-size:9px}.detailMenuFoot{display:none}.carStage{height:34svh;min-height:220px;flex:none}.detailSpecs{display:flex;padding:13px}.detailSpecs h3{font-size:25px}.detailSpecs .specRows{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}.detailSpecs .specRow{padding:8px 0}.detailBottom .selectCar{margin-top:10px}.specPopup{z-index:20}}
+
+/* Reworked collection and showroom: transparent HUD panels, cinematic set, not boxed cards. */
+.garageShade{background:radial-gradient(ellipse at 54% 42%,#303436c9,#0a0c0df5 72%);backdrop-filter:blur(8px)}
+.garageShell{padding:clamp(14px,2.2vh,26px) clamp(18px,2.8vw,44px)}
+.garageHeader{background:linear-gradient(100deg,#111518b8,transparent);border-bottom:1px solid #ffffff28;padding:10px 14px 18px}
+.carCollection{max-width:1450px;padding:clamp(16px,3vh,34px) 0}
+.collectionGrid{gap:12px}
+.collectionCard{background:linear-gradient(145deg,#ffffff1b,#1014164d);border:1px solid #ffffff2b;box-shadow:0 12px 35px #0005;backdrop-filter:blur(6px)}
+.collectionCard:hover,.collectionCard.active{border-color:#d7ff4f;box-shadow:0 0 0 1px #d7ff4f5c,0 16px 42px #0007}
+.carThumb{background:radial-gradient(ellipse at 50% 76%,#777d7b 0%,#353a39 32%,#191d1e 72%);height:clamp(190px,34vh,340px)}
+/* More refined silhouette thumbnails with wheel arches, glass highlights and reflections. */
+.thumbCarBody{left:11%;right:9%;bottom:24%;height:25%;border-radius:48% 46% 19% 20% / 52% 48% 25% 25%;clip-path:polygon(0 55%,7% 37%,20% 31%,31% 4%,63% 3%,79% 28%,94% 38%,100% 62%,96% 88%,5% 90%);background:linear-gradient(175deg,#ffb1b6 0%,#d72d40 19%,#8f101e 57%,#36070d 100%)}
+.carThumbMustang .thumbCarBody{background:linear-gradient(175deg,#b5d3ff,#387acb 24%,#18477f 60%,#07162c)}
+.thumbCabin{left:30%;right:22%;bottom:46%;height:27%;clip-path:polygon(18% 0,72% 0,100% 100%,0 100%);background:linear-gradient(120deg,#9aa8ae,#19252d 45%,#070b10);border-top:2px solid #e3e9e9}
+.thumbWheel{bottom:15%;width:15%;background:radial-gradient(circle,#dbe0e0 0 9%,#30383c 12% 24%,#92999c 26% 30%,#111416 33% 62%,#020303 66% 76%,#52595a 79% 84%,#070808 87%)}
+.collectionMeta{background:linear-gradient(90deg,#101315c9,#14181965);border-top:1px solid #ffffff18}
+.collectionStats{border-top:1px solid #ffffff12;padding-top:10px}
+.detailLayout{background:linear-gradient(100deg,#14171970,transparent);gap:10px}
+.detailMenu{background:linear-gradient(120deg,#7379784a,#24282999);backdrop-filter:blur(10px);border:1px solid #ffffff26}
+.detailMenuTitle{font-weight:300;letter-spacing:-.04em}
+.detailMenuItem{background:#c6c9c8e8;border:1px solid #e1e3e2;color:#202526;box-shadow:0 2px 4px #0002}
+.detailMenuItem.active,.detailMenuItem:hover{background:#d5d9d8;border-color:#fff;color:#141819}
+.detailMenuItem span{color:#555c5c}
+.carStage{background:radial-gradient(ellipse at 50% 55%,#3e4646 0%,#242a2b 50%,#0b0e0f 90%);border:1px solid #ffffff28;box-shadow:inset 0 0 90px #0009}
+.garageArchitecture{opacity:.9}
+.turntableOuter{border-color:#ffffff2e;box-shadow:0 0 0 12px #ffffff05,0 0 0 13px #ffffff09}
+.turntableRing{border-color:#d7ff4f72}
+.turntableDisc{background:radial-gradient(circle,#414647 0%,#292e2f 55%,#171b1c 72%,#080a0b 74%)}
+.stageGlow{background:radial-gradient(ellipse,#d7ff4f09,transparent 68%)}
+.stageLabel,.stageHint{background:#0b0e0dc9;border:1px solid #ffffff22;color:#e3e6e3}
+.detailSpecs{background:linear-gradient(150deg,#777c7b3d,#101314e8);backdrop-filter:blur(8px);border:1px solid #ffffff28}
+.detailSpecs h3 span{color:#d7ff4f}
+.selectCar{background:#d7ff4f;color:#151816}
+.selectCar:hover{background:#e5ff8b}
+.carStage.galleryMode{background:radial-gradient(ellipse at 50% 55%,#56605d,#171b1c 75%)}
+.carStage.galleryMode:after{content:'GALLERY MODE  /  CINEMATIC VIEW';position:absolute;right:12px;top:12px;z-index:5;color:#f1f4f0;background:#090c0dc9;padding:9px 12px;font-size:8px;letter-spacing:.14em;border:1px solid #ffffff33}
+@media(max-width:900px){.detailLayout{background:transparent}.detailMenu{background:#303535cc}.detailSpecs{background:#1b2020e8}}
