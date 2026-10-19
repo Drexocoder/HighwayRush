@@ -15,3 +15,47 @@
 @media(max-width:900px){.garageBody{grid-template-columns:1fr 1.6fr;grid-template-rows:minmax(260px,1fr) auto}.garageList{grid-column:1/-1;grid-row:2;flex-direction:row;align-items:stretch}.carChoice{flex:1}.garageTip{display:none}.specPanel{grid-column:1/-1;grid-row:3;display:grid;grid-template-columns:1fr 1fr;gap:10px}.specTop h3{font-size:24px}.specTop p{margin-bottom:10px}.specRows{grid-column:2;grid-row:1/3}.specDisclaimer{grid-column:1}.selectCar{grid-column:1/-1;padding:11px}.carStage{grid-column:1/-1;grid-row:1;min-height:260px}.garageShell{padding-top:calc(12px + var(--safe-top))}.garageHeader{padding-bottom:12px}.garageBody{gap:12px;padding-top:14px}.garageHeader h2{font-size:26px}}
 @media(max-width:520px){.garageBody{display:flex;flex-direction:column}.carStage{min-height:230px;flex:none;height:31svh}.garageList{order:2;flex-direction:column}.carChoice{min-height:49px;padding:9px}.specPanel{order:3;display:flex;gap:10px}.specTop h3{font-size:25px}.specRows{display:grid;grid-template-columns:1fr 1fr;column-gap:14px}.specRow{padding:9px 0}.specRow span{font-size:7px}.specRow b{font-size:9px}.specDisclaimer{margin:0}.selectCar{margin-top:0}.garageShell{padding-left:14px;padding-right:14px}.stageHint{font-size:6px}.stageLabel{font-size:7px}.stageControls{bottom:31px}}
 @media(max-width:520px){.headerRight{gap:7px}.brandSub{letter-spacing:.12em}.introContent{top:46%;width:calc(100% - 42px);left:21px}.heroTitle{font-size:clamp(52px,14vw,76px);letter-spacing:-.075em}.introCopy{max-width:245px;font-size:10px;line-height:1.65}.loadingArea{margin-top:22px}.loadMeta{font-size:7px;letter-spacing:.13em}.loadFoot{gap:12px;letter-spacing:.1em}.loadHint{max-width:112px;text-align:right;font-size:7px}.footer{display:none}.version{display:none}.menuGrid{padding:84px 16px calc(26px + var(--safe-bottom));align-items:flex-end}.menuPanel{max-width:100%}.menuDescription{max-width:235px;line-height:1.6}.optionTitle{font-size:8px;letter-spacing:.09em}.optionSub{font-size:7px;line-height:1.35}.carInfo{top:calc(70px + var(--safe-top));right:16px}.carName{font-size:17px}.carNote{max-width:120px;line-height:1.4;margin-left:auto}.garageHeader .garageEyebrow{font-size:7px;letter-spacing:.18em}.garageHeader h2{font-size:24px}.carStage{height:36svh;min-height:210px}.stageLabel{left:10px;top:10px;font-size:7px;max-width:60%;line-height:1.4}.stageHint{left:10px;bottom:8px;font-size:6px;max-width:65%;line-height:1.4}.specTop p{line-height:1.55}.specRow{gap:5px}.specRow span{letter-spacing:.03em}.specRow b{white-space:nowrap}.selectCar{font-size:8px;letter-spacing:.08em}}
+
+/* Garage showroom: architectural bay, animated circular turntable and compact spec popup. */
+.garageShade{background:radial-gradient(ellipse at 50% 48%,#202729 0%,#0b0e10 53%,#050607 100%)}
+.garageShade:before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.22;background:linear-gradient(90deg,transparent 0 7%,#d7ff4f12 7.1%,transparent 7.4% 92%,#d7ff4f10 92.1%,transparent 92.4%),repeating-linear-gradient(0deg,transparent 0 74px,#ffffff08 75px,transparent 77px)}
+.garageShell{position:relative;z-index:1}
+.garageHeader{border-bottom-color:#d7ff4f28}
+.garageBody{grid-template-columns:minmax(170px,.7fr) minmax(300px,2fr) minmax(145px,.55fr);gap:18px}
+.garageList{position:relative;z-index:4}
+.carStage{isolation:isolate;border:1px solid #ffffff12;background:linear-gradient(180deg,#161c1e 0%,#101416 45%,#080a0b 100%);box-shadow:inset 0 0 80px #0009,0 18px 70px #0007}
+.garageArchitecture{position:absolute;inset:0;overflow:hidden;pointer-events:none;perspective:700px}
+.garageArchitecture:before{content:"";position:absolute;inset:0 0 35%;background:repeating-linear-gradient(90deg,transparent 0 13%,#ffffff0a 13.2%,transparent 13.5% 26%),linear-gradient(180deg,#252e30 0%,#151b1d 65%,transparent 100%);clip-path:polygon(9% 0,91% 0,100% 100%,0 100%)}
+.garageArchitecture:after{content:"";position:absolute;left:7%;right:7%;top:8%;height:2px;background:linear-gradient(90deg,transparent,#d7ff4f9c,transparent);box-shadow:0 0 24px #d7ff4f33}
+.garageBeam{position:absolute;top:0;bottom:32%;width:2px;background:linear-gradient(#d7ff4f35,transparent);box-shadow:0 0 18px #d7ff4f18}
+.beamA{left:13%}.beamB{right:13%}
+.garageLight{position:absolute;left:22%;right:22%;top:5%;height:4px;background:#d7ff4f55;filter:blur(4px);box-shadow:0 0 35px 8px #d7ff4f12}
+.turntableOuter{position:absolute;z-index:0;width:min(78%,620px);aspect-ratio:1;left:50%;top:58%;transform:translate(-50%,-50%) rotateX(69deg);border-radius:50%;border:2px solid #d7ff4f42;box-shadow:0 0 0 12px #ffffff05,0 0 0 13px #ffffff0c,0 0 45px #d7ff4f12;animation:turntableSpin 24s linear infinite}
+.turntableRing{position:absolute;z-index:0;width:min(68%,540px);aspect-ratio:1;left:50%;top:58%;transform:translate(-50%,-50%) rotateX(69deg);border-radius:50%;border:1px dashed #d7ff4f88;animation:turntableSpin 18s linear infinite reverse}
+.turntableDisc{position:absolute;z-index:0;width:min(62%,500px);aspect-ratio:1;left:50%;top:58%;transform:translate(-50%,-50%) rotateX(69deg);border-radius:50%;background:radial-gradient(circle,#303a3a 0%,#222929 55%,#111617 70%,#080a0b 72%);border:1px solid #ffffff25;box-shadow:0 18px 30px #000a,inset 0 0 0 12px #ffffff05,inset 0 0 35px #000b}
+.floorReflection{position:absolute;z-index:0;left:10%;right:10%;bottom:6%;height:18%;background:radial-gradient(ellipse,#d7ff4f15,transparent 70%);filter:blur(12px)}
+#carModelViewer{z-index:2;background:transparent}
+.stageGlow{z-index:1;background:#d7ff4f0d;filter:blur(65px)}
+.stageGrid{z-index:0;opacity:.07}
+.stageLabel{z-index:4;left:16px;top:15px;background:#07090bb8;border:1px solid #ffffff1a;padding:8px 10px}
+.stageHint{z-index:4;bottom:13px;left:15px;background:#07090bb8;padding:7px 9px;letter-spacing:.2em}
+.stageControl{z-index:5}
+.detailsToggle{position:absolute;right:13px;bottom:12px}
+.specPanel{position:relative;z-index:4;align-self:center;padding:16px 12px;border:1px solid #ffffff16;background:#080b0dbb;backdrop-filter:blur(12px);max-width:230px}
+.specTop h3{font-size:25px}
+.specTop p{font-size:10px;line-height:1.55;margin-bottom:12px}
+.specRow{padding:10px 0;font-size:7px}.specRow b{font-size:9px}
+.specDisclaimer{font-size:6px;margin:9px 0}
+.selectCar{padding:12px 8px;font-size:8px;letter-spacing:.08em}
+.garageToast{font-size:8px}
+.specPopup{position:absolute;z-index:8;right:clamp(18px,5vw,70px);top:clamp(80px,15vh,150px);width:min(260px,calc(100vw - 36px));padding:20px;background:#0a0e11f2;border:1px solid #d7ff4f55;box-shadow:0 22px 80px #000b;backdrop-filter:blur(18px);opacity:0;visibility:hidden;transform:translateY(8px) scale(.98);transition:.22s}
+.specPopup.show{opacity:1;visibility:visible;transform:translateY(0) scale(1)}
+.specPopupClose{position:absolute;right:10px;top:10px;width:28px;height:28px;border:1px solid #ffffff24;background:#ffffff08;display:grid;place-items:center}
+.specPopupClose svg{width:13px;height:13px}
+.specPopup h3{font-size:21px;letter-spacing:-.05em;margin:10px 0 14px}
+.specPopupRows{display:grid;gap:0}
+.specPopupRows span{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-top:1px solid #ffffff16;color:#9ea7a7;font-size:8px;letter-spacing:.1em}
+.specPopupRows b{color:#f3f5f0;font-size:10px;letter-spacing:0}
+@keyframes turntableSpin{from{rotate:0deg}to{rotate:360deg}}
+@media(max-width:900px){.garageBody{grid-template-columns:1fr;grid-template-rows:auto minmax(270px,1fr) auto}.garageList{grid-column:auto;grid-row:auto}.carStage{grid-column:auto;grid-row:auto}.specPanel{grid-column:auto;grid-row:auto;max-width:none;display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px}.specTop h3{font-size:22px}.specRows{grid-column:auto;grid-row:auto}.specDisclaimer{grid-column:auto}.selectCar{grid-column:1/-1}.garageTip{display:none}}
+@media(max-width:520px){.garageBody{display:flex;flex-direction:column}.carStage{height:36svh;min-height:210px;flex:none}.garageList{order:2;flex-direction:row}.carChoice{min-width:0;gap:7px;padding:9px 7px}.carChoice b{font-size:9px}.carChoice small{font-size:6px}.specPanel{order:3;display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:10px}.specTop h3{font-size:21px}.specTop p{font-size:9px}.specRows{display:grid;grid-template-columns:1fr 1fr;column-gap:10px}.specRow{padding:7px 0}.specDisclaimer{margin:0}.selectCar{margin-top:0}.specPopup{top:95px;right:12px;width:min(245px,calc(100vw - 24px))}.turntableOuter{width:92%}.turntableRing{width:81%}.turntableDisc{width:74%}}
