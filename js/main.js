@@ -1,10 +1,7 @@
-import { createMusicController } from './audio.js';
-const music = createMusicController('./assets/audio/phonk.mp3', { volume: 0.32, playbackRate: 0.88 });
 (()=>{'use strict';
-const $=id=>document.getElementById(id);const introView=$('introView'),menuView=$('menuView'),introScene=$('introScene'),menuScene=$('menuScene');let page='intro',soundOn=false,audio=null,load=0,finished=false,loadTimer=null;
+const $=id=>document.getElementById(id);const introView=$('introView'),menuView=$('menuView'),introScene=$('introScene'),menuScene=$('menuScene');let page='intro',soundOn=false,audio=null,finished=false,loadTimer=null;
 if(window.lucide)lucide.createIcons();
 const status=$('loadStatus'),percent=$('loadPercent'),fill=$('loadFill');
-let page='intro',soundOn=false,audio=null,finished=false,loadTimer=null;
 const stages=[[0,'INITIALIZING EXPERIENCE'],[16,'BUILDING THE NIGHT DRIVE'],[34,'PREPARING VEHICLE SYSTEMS'],[52,'CALIBRATING THE GARAGE'],[72,'TUNING THE LIGHTING'],[90,'FINAL CHECKS'],[100,'READY WHEN YOU ARE']];
 function setLoad(v){const n=Math.max(0,Math.min(100,Math.floor(v)));percent.textContent=String(n).padStart(2,'0')+'%';fill.style.width=n+'%';let s=stages[0][1];for(const st of stages)if(n>=st[0])s=st[1];status.textContent=s;}
 function showMenu(){if(finished)return;finished=true;clearInterval(loadTimer);setLoad(100);introView.classList.remove('active');menuView.classList.add('active');introScene.classList.remove('ready');menuScene.classList.add('ready');page='menu';document.querySelector('.statusText').textContent='SYSTEM READY';setTimeout(()=>{introScene.style.display='none';},1200);}
@@ -19,25 +16,32 @@ function playClick(){try{audio=audio||new(window.AudioContext||window.webkitAudi
 
 const musicTrack=new Audio('./assets/audio/phonk.mp3');
 musicTrack.loop=true;
-musicTrack.preload='none';
+musicTrack.preload='auto';
 musicTrack.volume=0.32;
 musicTrack.playbackRate=0.88;
-musicTrack.addEventListener('error',()=>{status.textContent='ADD MP3: assets/audio/phonk.mp3';});
+let musicPending=true;
 async function startMusic(){
  try{
   musicTrack.volume=0.32;
   musicTrack.playbackRate=0.88;
   await musicTrack.play();
- }catch(e){
-  soundOn=false;
-  $('soundBtn').innerHTML='<i data-lucide="music-2"></i>';
+  musicPending=false;soundOn=true;
+  $('soundBtn').innerHTML='<i data-lucide="volume-2"></i>';
   if(window.lucide)lucide.createIcons();
-  status.textContent='ADD MP3: assets/audio/phonk.mp3';
+ }catch(e){
+  musicPending=true;
+  // Browsers block unmuted autoplay until a user gesture. Retry on the first real interaction.
  }
 }
-function stopMusic(){musicTrack.pause();}
+function stopMusic(){musicTrack.pause();soundOn=false;}
+function unlockMusic(){
+ if(musicPending&&!musicTrack.paused) return;
+ if(musicPending){startMusic();}
+}
+
 function playUi(kind){if(!soundOn)return;try{audio=audio||new(window.AudioContext||window.webkitAudioContext)();if(audio.state==='suspended')audio.resume();const now=audio.currentTime;let o=audio.createOscillator(),g=audio.createGain();o.type=kind==='select'?'sine':'triangle';o.frequency.setValueAtTime(kind==='select'?620:430,now);o.frequency.exponentialRampToValueAtTime(kind==='select'?880:590,now+.075);g.gain.setValueAtTime(.045,now);g.gain.exponentialRampToValueAtTime(.001,now+.14);o.connect(g);g.connect(audio.destination);o.start();o.stop(now+.15);}catch(e){}}
-$('soundBtn').addEventListener('click',async()=>{soundOn=!soundOn;if(soundOn){await startMusic();}else{stopMusic();}$('soundBtn').innerHTML=soundOn?'<i data-lucide="volume-2"></i>':'<i data-lucide="music-2"></i>';if(window.lucide)lucide.createIcons();});
+$('soundBtn').addEventListener('click',async()=>{if(!soundOn){await startMusic();}else{stopMusic();}$('soundBtn').innerHTML=soundOn?'<i data-lucide="volume-2"></i>':'<i data-lucide="music-2"></i>';if(window.lucide)lucide.createIcons();});
+window.addEventListener('pointerdown',unlockMusic,{once:true});window.addEventListener('keydown',unlockMusic,{once:true});
 document.querySelectorAll('button').forEach(b=>{if(b.id!=='soundBtn')b.addEventListener('click',()=>playUi('click'));});
 
 
@@ -63,5 +67,5 @@ function draw(t){const dt=Math.min((t-last)/1000||0,.04);last=t;ctx.clearRect(0,
 if(page==='intro'){for(let i=0;i<10;i++){let y=((i*83+t*.07)%h);let x=((i*173+t*.22)%w);let len=25+(i%4)*24;ctx.globalAlpha=.08+(i%3)*.025;ctx.strokeStyle='#d7ff4f';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x-len,y+len*.13);ctx.stroke();}}
 // subtle focus flare
 let g=ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(w,h)*.52);g.addColorStop(0,'rgba(215,255,79,.035)');g.addColorStop(1,'rgba(215,255,79,0)');ctx.fillStyle=g;ctx.fillRect(0,0,w,h);ctx.globalAlpha=1;requestAnimationFrame(draw);}
-window.addEventListener('resize',resize);resize();requestAnimationFrame(draw);startLoading();
+window.addEventListener('resize',resize);resize();requestAnimationFrame(draw);startLoading();startMusic();
 })();
