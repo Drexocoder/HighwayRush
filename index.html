@@ -17,23 +17,23 @@
 <canvas id="fx"></canvas>
 <header class="header"><div class="brand">
 <svg class="logo" viewBox="0 0 64 64" fill="none" aria-label="Highway Rush logo"><path d="M8 9H56L48 55H16L8 9Z" stroke="#D7FF4F" stroke-width="2"/><path d="M18 18H46L42 46H22L18 18Z" fill="#D7FF4F"/><path d="M29 23H35L33 30H31L29 23Z M27 34H37L36 41H28L27 34Z" fill="#0A0D0B"/><path d="M4 25H13M51 25H60M3 33H12M52 33H61" stroke="#D7FF4F" stroke-width="2" stroke-linecap="round"/></svg>
-<div><div class="brandName">HIGHWAY RUSH</div><div class="brandSub">DRIVE BEYOND LIMITS</div></div></div><div class="headerRight"><span class="status"><i class="liveDot"></i><span class="statusText">SYSTEM INITIALIZING</span></span><button class="iconButton" id="soundBtn" aria-label="Toggle music" title="Enable background music"><i data-lucide="music-2"></i></button></div></header>
-<div class="version">PRE-ALPHA · 0.2.0</div>
+<div><div class="brandName">HIGHWAY RUSH</div></div></div><div class="headerRight"><span class="status"><i class="liveDot"></i><span class="statusText">SYSTEM INITIALIZING</span></span><button class="iconButton" id="soundBtn" aria-label="Toggle music" title="Enable background music"><i data-lucide="music-2"></i></button></div></header>
+
 <section class="view active" id="introView" aria-label="Cinematic intro">
-<div class="introContent"><div class="overline">The road is calling</div><h1 class="heroTitle">HIGHWAY<span>RUSH.</span></h1><p class="introCopy">Night falls. Engines wake. Every mile is a new story. Your highway moment begins here.</p>
-<div class="loadingArea"><div class="loadMeta"><span id="loadStatus">INITIALIZING EXPERIENCE</span><span class="loadPercent" id="loadPercent">00%</span></div><div class="loadTrack"><div class="loadFill" id="loadFill"></div></div><div class="loadFoot"><span>Preparing the garage</span><span class="loadHint" id="loadHint">CAR ASSETS 0 / 2</span></div></div>
+<div class="introContent"><h1 class="heroTitle">HIGHWAY<span>RUSH.</span></h1>
+<div class="loadingArea"><div class="loadMeta"><span id="loadStatus">INITIALIZING EXPERIENCE</span><span class="loadPercent" id="loadPercent">00%</span></div><div class="loadTrack"><div class="loadFill" id="loadFill"></div></div><div class="loadFoot"><span class="loadHint" id="loadHint">LOADING</span></div></div>
 </div></section>
 <section class="view" id="menuView" aria-label="Main menu">
-<div class="menuGrid"><div class="menuPanel"><div class="menuKicker">Select your destination</div><h2 class="menuTitle">Own the<br><em>open road.</em></h2><p class="menuDescription">The city fades. The highway opens. Your next obsession starts here.</p>
+<div class="menuGrid"><div class="menuPanel"><h2 class="menuTitle">HIGHWAY<br><em>RUSH.</em></h2>
 <nav class="menuOptions" aria-label="Main menu">
-<button class="menuOption primaryOption" data-modal="drive"><span class="optionIcon"><i data-lucide="flag-triangle-right"></i></span><span class="optionWords"><span class="optionTitle">Start driving</span><span class="optionSub">Enter the highway</span></span><i class="optionArrow" data-lucide="arrow-up-right"></i></button>
-<button class="menuOption" data-modal="garage"><span class="optionIcon"><i data-lucide="car-front"></i></span><span class="optionWords"><span class="optionTitle">Garage</span><span class="optionSub">Your collection</span></span><i class="optionArrow" data-lucide="chevron-right"></i></button>
-<button class="menuOption" data-modal="settings"><span class="optionIcon"><i data-lucide="sliders-horizontal"></i></span><span class="optionWords"><span class="optionTitle">Settings</span><span class="optionSub">Tune your setup</span></span><i class="optionArrow" data-lucide="chevron-right"></i></button>
-<button class="menuOption" data-modal="about"><span class="optionIcon"><i data-lucide="info"></i></span><span class="optionWords"><span class="optionTitle">About</span><span class="optionSub">The project</span></span><i class="optionArrow" data-lucide="chevron-right"></i></button>
+<button class="menuOption primaryOption" data-modal="drive"><span class="optionIcon"><i data-lucide="flag-triangle-right"></i></span><span class="optionWords"><span class="optionTitle">Start driving</span></span><i class="optionArrow" data-lucide="arrow-up-right"></i></button>
+<button class="menuOption" data-modal="garage"><span class="optionIcon"><i data-lucide="car-front"></i></span><span class="optionWords"><span class="optionTitle">Garage</span></span><i class="optionArrow" data-lucide="chevron-right"></i></button>
+<button class="menuOption" data-modal="settings"><span class="optionIcon"><i data-lucide="sliders-horizontal"></i></span><span class="optionWords"><span class="optionTitle">Settings</span></span><i class="optionArrow" data-lucide="chevron-right"></i></button>
+<button class="menuOption" data-modal="about"><span class="optionIcon"><i data-lucide="info"></i></span><span class="optionWords"><span class="optionTitle">About</span></span><i class="optionArrow" data-lucide="chevron-right"></i></button>
 </nav></div></div>
-<div class="carInfo"><div class="carTag">MACHINE / 001</div><div class="carName">Midnight runner</div><div class="carNote">HIGHWAY RUSH · VISUAL PREVIEW</div></div>
+<div class="carInfo"></div>
 </section>
-<footer class="footer"><span><strong>HIGHWAY RUSH</strong> &nbsp; / &nbsp; A NEW ROAD AWAITS</span><div class="footerRight"><span class="hideSmall">CINEMATIC UI</span><span class="footerLine"></span><span>WEB · MOBILE</span></div></footer>
+
 
 <div class="garageShade" id="garageShade" aria-hidden="true">
  <div class="garageShell">
