@@ -26,7 +26,8 @@
 .garageShade{position:absolute;inset:0;z-index:15;background:#050709f5;backdrop-filter:blur(20px);opacity:0;visibility:hidden;transform:scale(1.025);transition:opacity .45s,transform .55s,visibility .45s;overflow:auto}.garageShade.open{opacity:1;visibility:visible;transform:scale(1)}.garageShell{min-height:100%;padding:calc(25px + var(--safe-top)) clamp(18px,4vw,60px) calc(22px + var(--safe-bottom));display:flex;flex-direction:column}.garageHeader{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #ffffff20;padding-bottom:20px}.garageEyebrow,.specEyebrow{font-size:8px;letter-spacing:.28em;color:var(--acid);font-weight:900}.garageHeader h2{font-size:clamp(26px,4vw,45px);font-style:italic;letter-spacing:-.07em;margin:7px 0 0}.garageHeader h2 span{color:var(--acid)}.garageBody{display:grid;grid-template-columns:minmax(180px,.8fr) minmax(280px,1.7fr) minmax(200px,.8fr);gap:22px;flex:1;align-items:stretch;padding-top:24px;min-height:0}.garageList{display:flex;flex-direction:column;gap:9px}.carChoice{display:flex;align-items:center;gap:12px;text-align:left;padding:14px 11px;background:#ffffff06;border:1px solid #ffffff1b;border-radius:4px;transition:.2s}.carChoice.active,.carChoice:hover{border-color:#d7ff4f99;background:#d7ff4f0c}.carNumber{font-size:10px;color:var(--acid);font-weight:900}.carChoice span:nth-child(2){flex:1}.carChoice b{display:block;font-size:11px}.carChoice small{display:block;font-size:8px;color:#929b9c;letter-spacing:.14em;margin-top:6px}.carChoice svg{width:14px;height:14px}.garageTip{font-size:8px;color:#8f9899;letter-spacing:.1em;line-height:1.8;margin-top:auto;display:flex;gap:8px;align-items:center}.garageTip svg{width:17px;height:17px;color:var(--acid);flex:none}.carStage{position:relative;min-height:330px;overflow:hidden;border:1px solid #ffffff18;background:radial-gradient(ellipse at 50% 50%,#222a2b 0,#101416 45%,#080a0c 80%);display:grid;place-items:center;touch-action:pan-y;cursor:grab}.carStage:active{cursor:grabbing}.stageGlow{position:absolute;width:65%;aspect-ratio:1;border-radius:50%;background:#d7ff4f0b;filter:blur(55px)}.stageGrid{position:absolute;inset:0;opacity:.18;background-image:linear-gradient(#ffffff12 1px,transparent 1px),linear-gradient(90deg,#ffffff12 1px,transparent 1px);background-size:32px 32px;mask-image:linear-gradient(transparent,#000,transparent)}#carImage{position:relative;z-index:1;width:100%;height:75%;max-height:460px;object-fit:contain;user-select:none;pointer-events:none;filter:drop-shadow(0 25px 20px #000b);transform:perspective(900px) rotateY(0deg) scale(1);transition:filter .2s;will-change:transform}.stageLabel{position:absolute;z-index:2;left:18px;top:18px;color:#b9c0bf;font-size:8px;letter-spacing:.19em}.stageControls{position:absolute;z-index:3;right:13px;bottom:38px;display:flex;gap:6px}.stageControl{width:32px;height:32px;border:1px solid #ffffff30;background:#050709bd;display:grid;place-items:center;border-radius:3px}.stageControl:hover{border-color:var(--acid);color:var(--acid)}.stageControl svg{width:14px;height:14px}.stageHint{position:absolute;z-index:2;left:15px;bottom:17px;color:#8e9798;font-size:7px;letter-spacing:.14em}.specPanel{display:flex;flex-direction:column;padding:10px 0}.specTop h3{font-size:32px;letter-spacing:-.07em;margin:11px 0 8px}.specTop h3 span{color:var(--acid)}.specTop p{font-size:11px;line-height:1.7;color:#a3acac;margin:0 0 22px}.specRows{border-top:1px solid #ffffff20}.specRow{display:flex;justify-content:space-between;gap:8px;padding:13px 0;border-bottom:1px solid #ffffff17;font-size:8px;letter-spacing:.1em;color:#9ba3a3}.specRow b{font-size:10px;color:#f2f4ef;letter-spacing:.02em;text-align:right}.specDisclaimer{font-size:7px;line-height:1.6;color:#747d7e;margin-top:12px}.selectCar{margin-top:auto;display:flex;align-items:center;justify-content:center;gap:10px;padding:14px 10px;background:var(--acid);color:#11140b;border:0;font-size:9px;font-weight:900;letter-spacing:.13em}.selectCar svg{width:15px;height:15px}.garageToast{font-size:9px;color:var(--acid);margin-top:9px;min-height:12px}
 @media(max-width:900px){.garageBody{grid-template-columns:1fr 1.6fr;grid-template-rows:minmax(260px,1fr) auto}.garageList{grid-column:1/-1;grid-row:2;flex-direction:row;align-items:stretch}.carChoice{flex:1}.garageTip{display:none}.specPanel{grid-column:1/-1;grid-row:3;display:grid;grid-template-columns:1fr 1fr;gap:10px}.specTop h3{font-size:24px}.specTop p{margin-bottom:10px}.specRows{grid-column:2;grid-row:1/3}.specDisclaimer{grid-column:1}.selectCar{grid-column:1/-1;padding:11px}.carStage{grid-column:1/-1;grid-row:1;min-height:260px}.garageShell{padding-top:calc(12px + var(--safe-top))}.garageHeader{padding-bottom:12px}.garageBody{gap:12px;padding-top:14px}.garageHeader h2{font-size:26px}}
 @media(max-width:520px){.garageBody{display:flex;flex-direction:column}.carStage{min-height:230px;flex:none;height:31svh}.garageList{order:2;flex-direction:column}.carChoice{min-height:49px;padding:9px}.specPanel{order:3;display:flex;gap:10px}.specTop h3{font-size:25px}.specRows{display:grid;grid-template-columns:1fr 1fr;column-gap:14px}.specRow{padding:9px 0}.specRow span{font-size:7px}.specRow b{font-size:9px}.specDisclaimer{margin:0}.selectCar{margin-top:0}.garageShell{padding-left:14px;padding-right:14px}.stageHint{font-size:6px}.stageLabel{font-size:7px}.stageControls{bottom:31px}}
-\n</style>
+
+</style>
 </head>
 <body>
 <div id="app">
@@ -74,7 +75,8 @@
    </aside>
   </div>
  </div>
-</div>\n<div class="modalShade" id="modalShade" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal"><div class="modalLabel" id="modalLabel">HIGHWAY RUSH</div><h2 id="modalTitle">Coming soon</h2><p id="modalText"></p><div class="modalActions"><button class="actionBtn" id="closeModal"><i data-lucide="arrow-left"></i> Back</button><button class="actionBtn primaryAction" id="modalOk">Understood <i data-lucide="arrow-up-right"></i></button></div></div></div>
+</div>
+<div class="modalShade" id="modalShade" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal"><div class="modalLabel" id="modalLabel">HIGHWAY RUSH</div><h2 id="modalTitle">Coming soon</h2><p id="modalText"></p><div class="modalActions"><button class="actionBtn" id="closeModal"><i data-lucide="arrow-left"></i> Back</button><button class="actionBtn primaryAction" id="modalOk">Understood <i data-lucide="arrow-up-right"></i></button></div></div></div>
 <div class="portraitHint" id="portraitHint"><div class="portraitCard"><div class="rotateGraphic"><i data-lucide="smartphone"></i></div><h2>Turn up the horizon</h2><p>HIGHWAY RUSH is best experienced in landscape. Rotate your phone for a wider, cinematic view.</p><button id="rotateBtn">Try landscape mode</button></div></div>
 </div>
 <script>
@@ -86,19 +88,23 @@ const stages=[[0,'INITIALIZING EXPERIENCE'],[18,'CALIBRATING VISUALS'],[39,'LOAD
 function setLoad(v){load=v;percent.textContent=String(Math.floor(v)).padStart(2,'0')+'%';fill.style.width=v+'%';let s=stages[0][1];for(const st of stages)if(v>=st[0])s=st[1];status.textContent=s;}
 function showMenu(){if(finished)return;finished=true;clearInterval(loadTimer);setLoad(100);introView.classList.remove('active');menuView.classList.add('active');introScene.classList.remove('ready');menuScene.classList.add('ready');page='menu';document.querySelector('.statusText').textContent='SYSTEM READY';setTimeout(()=>{introScene.style.display='none';},1200);}
 async function startLoading(){
- // Only preload the two selected vehicle visuals. Intro video and decorative backgrounds never block the loader.
+ // Progress begins synchronously; visual assets are optional and can never trap the player on this screen.
+ let settled=false, completed=0;
+ setLoad(4);status.textContent='STARTING HIGHWAY RUSH';$('loadHint').textContent='CHECKING CAR VISUALS';
+ const finish=()=>{if(settled)return;settled=true;clearTimeout(hardStop);setLoad(100);status.textContent='GARAGE READY';$('loadHint').textContent='READY TO DRIVE';setTimeout(showMenu,350);};
+ // Absolute failsafe even if a browser image request or promise behaves unexpectedly.
+ const hardStop=setTimeout(finish,4500);
  const assets=[
-  {name:'NISSAN GT-R R35',url:'https://images.unsplash.com/photo-1614200187524-dc4b892acf16?auto=format&fit=crop&w=1400&q=82'},
-  {name:'FORD MUSTANG GT',url:'https://images.unsplash.com/photo-1584345604476-8ec5b7c5a6b0?auto=format&fit=crop&w=1400&q=82'}
+  'https://images.unsplash.com/photo-1614200187524-dc4b892acf16?auto=format&fit=crop&w=1400&q=82',
+  'https://images.unsplash.com/photo-1584345604476-8ec5b7c5a6b0?auto=format&fit=crop&w=1400&q=82'
  ];
- let completed=0;setLoad(0);status.textContent='LOADING CAR VISUALS';$('loadHint').textContent='CAR ASSETS 0 / 2';
- const jobs=assets.map(asset=>new Promise(resolve=>{
-   let settled=false;const finish=ok=>{if(settled)return;settled=true;completed++;setLoad(completed/assets.length*100);status.textContent=ok?'LOADING CAR VISUALS':'CAR VISUAL UNAVAILABLE';$('loadHint').textContent='CAR ASSETS '+completed+' / '+assets.length;resolve(ok);};
-   const img=new Image();const timeout=setTimeout(()=>finish(false),6500);
-   img.onload=()=>{clearTimeout(timeout);finish(true)};img.onerror=()=>{clearTimeout(timeout);finish(false)};img.src=asset.url;
+ setLoad(12);status.textContent='CHECKING CAR VISUALS';
+ const jobs=assets.map(url=>new Promise(resolve=>{
+  let done=false;const end=()=>{if(done)return;done=true;completed++;setLoad(Math.min(88,12+completed*34));$('loadHint').textContent='CAR VISUALS '+completed+' / '+assets.length;resolve();};
+  const img=new Image();const timeout=setTimeout(end,1800);
+  img.onload=()=>{clearTimeout(timeout);end();};img.onerror=()=>{clearTimeout(timeout);end();};img.src=url;
  }));
- // Never wait for video/network stalls. After the two car assets resolve or time out, enter the menu.
- await Promise.all(jobs);if(finished)return;setLoad(100);status.textContent='GARAGE READY';$('loadHint').textContent='2 CAR VISUALS CHECKED';setTimeout(showMenu,450);
+ Promise.all(jobs).then(finish).catch(finish);
 }
 
 const copy={drive:['FIRST DRIVE','The highway is still being built.','This build is the cinematic intro and main menu only. The playable driving scene, traffic, steering, speed effects and scoring are the next development phase.'],garage:['THE GARAGE','Opening vehicle showroom.','Choose a car in the interactive showroom.'],settings:['SETTINGS','Your setup, your style.','This preview adapts to your screen size and includes an optional sound toggle. Graphics, controls and gameplay settings will arrive with the driving build.'],about:['THE PROJECT','Built for the open road.','HIGHWAY RUSH is a mobile-first browser car driving game concept. This version focuses on a cinematic intro, responsive main menu and visual effects.']};
@@ -108,9 +114,27 @@ document.querySelectorAll('[data-modal]').forEach(b=>b.addEventListener('click',
 $('closeModal').addEventListener('click',closeModal);$('modalOk').addEventListener('click',closeModal);$('modalShade').addEventListener('click',e=>{if(e.target===$('modalShade'))closeModal()});document.addEventListener('keydown',e=>{if(e.key==='Escape'){if($('garageShade').classList.contains('open'))closeGarage();else if(page==='modal')closeModal();}});
 function playClick(){try{audio=audio||new(window.AudioContext||window.webkitAudioContext)();if(audio.state==='suspended')audio.resume();let o=audio.createOscillator(),g=audio.createGain();o.type='triangle';o.frequency.setValueAtTime(440,audio.currentTime);o.frequency.exponentialRampToValueAtTime(660,audio.currentTime+.07);g.gain.setValueAtTime(.035,audio.currentTime);g.gain.exponentialRampToValueAtTime(.001,audio.currentTime+.12);o.connect(g);g.connect(audio.destination);o.start();o.stop(audio.currentTime+.13);}catch(e){}}
 
-let musicTimer=null,musicStep=0;function beatTone(freq,duration,volume,type='sine',slide=1){if(!audio)return;const now=audio.currentTime,o=audio.createOscillator(),g=audio.createGain();o.type=type;o.frequency.setValueAtTime(freq,now);o.frequency.exponentialRampToValueAtTime(Math.max(30,freq*slide),now+duration);g.gain.setValueAtTime(volume,now);g.gain.exponentialRampToValueAtTime(.001,now+duration);o.connect(g);g.connect(audio.destination);o.start(now);o.stop(now+duration+.015);}function startMusic(){try{audio=audio||new(window.AudioContext||window.webkitAudioContext)();audio.resume();musicStep=0;musicTimer=setInterval(()=>{if(!soundOn||!audio)return;const s=musicStep%16;if([0,8].includes(s))beatTone(105,.18,.24,'sine',.42);if([4,12].includes(s))beatTone(65,.14,.16,'sine',.55);if([2,6,10,14].includes(s))beatTone(820,.045,.035,'square',.65);if([0,3,6,8,11,14].includes(s))beatTone([130,155,130,185][Math.floor(s/4)]||130,.11,.035,'triangle',1.6);musicStep++;},125);}catch(e){}}function stopMusic(){if(musicTimer)clearInterval(musicTimer);musicTimer=null;}
+const musicTrack=new Audio('./assets/audio/phonk.mp3');
+musicTrack.loop=true;
+musicTrack.preload='none';
+musicTrack.volume=0.32;
+musicTrack.playbackRate=0.88;
+musicTrack.addEventListener('error',()=>{status.textContent='ADD MP3: assets/audio/phonk.mp3';});
+async function startMusic(){
+ try{
+  musicTrack.volume=0.32;
+  musicTrack.playbackRate=0.88;
+  await musicTrack.play();
+ }catch(e){
+  soundOn=false;
+  $('soundBtn').innerHTML='<i data-lucide="music-2"></i>';
+  if(window.lucide)lucide.createIcons();
+  status.textContent='ADD MP3: assets/audio/phonk.mp3';
+ }
+}
+function stopMusic(){musicTrack.pause();}
 function playUi(kind){if(!soundOn)return;try{audio=audio||new(window.AudioContext||window.webkitAudioContext)();if(audio.state==='suspended')audio.resume();const now=audio.currentTime;let o=audio.createOscillator(),g=audio.createGain();o.type=kind==='select'?'sine':'triangle';o.frequency.setValueAtTime(kind==='select'?620:430,now);o.frequency.exponentialRampToValueAtTime(kind==='select'?880:590,now+.075);g.gain.setValueAtTime(.045,now);g.gain.exponentialRampToValueAtTime(.001,now+.14);o.connect(g);g.connect(audio.destination);o.start();o.stop(now+.15);}catch(e){}}
-$('soundBtn').addEventListener('click',()=>{soundOn=!soundOn;if(soundOn)startMusic();else stopMusic();$('soundBtn').innerHTML=soundOn?'<i data-lucide="volume-2"></i>':'<i data-lucide="music-2"></i>';if(window.lucide)lucide.createIcons();playUi('select');});
+$('soundBtn').addEventListener('click',async()=>{soundOn=!soundOn;if(soundOn){await startMusic();}else{stopMusic();}$('soundBtn').innerHTML=soundOn?'<i data-lucide="volume-2"></i>':'<i data-lucide="music-2"></i>';if(window.lucide)lucide.createIcons();});
 document.querySelectorAll('button').forEach(b=>{if(b.id!=='soundBtn')b.addEventListener('click',()=>playUi('click'));});
 
 
@@ -126,10 +150,12 @@ $('garageClose').addEventListener('click',closeGarage);document.querySelectorAll
 $('zoomIn').addEventListener('click',()=>{carZoom=Math.min(1.8,carZoom+.12);updateCarTransform();playUi('click')});$('zoomOut').addEventListener('click',()=>{carZoom=Math.max(.65,carZoom-.12);updateCarTransform();playUi('click')});$('rotateReset').addEventListener('click',()=>{carZoom=1;carRotation=0;updateCarTransform();playUi('click')});
 const stage=$('carStage');stage.addEventListener('pointerdown',e=>{dragging=true;dragX=e.clientX;stage.setPointerCapture(e.pointerId)});stage.addEventListener('pointermove',e=>{if(!dragging)return;const dx=e.clientX-dragX;dragX=e.clientX;carRotation=Math.max(-35,Math.min(35,carRotation+dx*.6));updateCarTransform()});stage.addEventListener('pointerup',()=>dragging=false);stage.addEventListener('pointercancel',()=>dragging=false);stage.addEventListener('wheel',e=>{e.preventDefault();carZoom=Math.max(.65,Math.min(1.8,carZoom+(e.deltaY<0?.08:-.08)));updateCarTransform()},{passive:false});
 $('selectCar').addEventListener('click',()=>{const d=carData[selectedCar];$('selectCar').innerHTML='<i data-lucide="check-circle-2"></i> '+d.label.toUpperCase()+' SELECTED';if(window.lucide)lucide.createIcons();playUi('select')});
-\nasync function tryLandscape(){try{if(!document.fullscreenElement&&document.documentElement.requestFullscreen)await document.documentElement.requestFullscreen();if(screen.orientation&&screen.orientation.lock)await screen.orientation.lock('landscape');}catch(e){}$('portraitHint').style.display='none';}
+
+async function tryLandscape(){try{if(!document.fullscreenElement&&document.documentElement.requestFullscreen)await document.documentElement.requestFullscreen();if(screen.orientation&&screen.orientation.lock)await screen.orientation.lock('landscape');}catch(e){}$('portraitHint').style.display='none';}
 $('rotateBtn').addEventListener('click',tryLandscape);
 function portraitCheck(){const mobile=matchMedia('(max-width:760px)').matches;const portrait=innerHeight>innerWidth;if(mobile&&portrait){$('portraitHint').style.display='flex';}else{$('portraitHint').style.display='none';}}
-$('introVideo').addEventListener('error',()=>{$('introVideo').style.display='none';});$('introVideo').play().catch(()=>{});\nwindow.addEventListener('resize',portraitCheck);window.addEventListener('orientationchange',()=>setTimeout(portraitCheck,200));portraitCheck();
+$('introVideo').addEventListener('error',()=>{$('introVideo').style.display='none';});$('introVideo').play().catch(()=>{});
+window.addEventListener('resize',portraitCheck);window.addEventListener('orientationchange',()=>setTimeout(portraitCheck,200));portraitCheck();
 const canvas=$('fx'),ctx=canvas.getContext('2d');let w=0,h=0,dpr=1,particles=[],last=0;
 function resize(){dpr=Math.min(window.devicePixelRatio||1,1.7);w=innerWidth;h=innerHeight;canvas.width=Math.floor(w*dpr);canvas.height=Math.floor(h*dpr);canvas.style.width=w+'px';canvas.style.height=h+'px';ctx.setTransform(dpr,0,0,dpr,0,0);particles=Array.from({length:Math.min(95,Math.floor(w*h/14000))},()=>({x:Math.random()*w,y:Math.random()*h,z:Math.random()*.8+.2,r:Math.random()*1.5+.25,v:Math.random()*18+6,a:Math.random()*.55+.08}));}
 function draw(t){const dt=Math.min((t-last)/1000||0,.04);last=t;ctx.clearRect(0,0,w,h);let cx=w*.55,cy=h*.52;for(const p of particles){p.x-=p.v*dt*(page==='intro'?1.7:0.7);p.y+=Math.sin(t*.0004+p.x*.008)*dt*5;if(p.x<-5){p.x=w+5;p.y=Math.random()*h;}ctx.globalAlpha=p.a;ctx.fillStyle='#d7ffb0';ctx.beginPath();ctx.arc(p.x,p.y,p.r*p.z,0,Math.PI*2);ctx.fill();}ctx.globalAlpha=1;
