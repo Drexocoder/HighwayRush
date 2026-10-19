@@ -17,7 +17,7 @@ A full-screen, landscape-first browser material sandbox with touch-friendly cont
 - Phase 2 interactions: acid dissolves selected solids; lava heats materials and cools into rock; fire spreads through wood/plants/oil; powder detonates in a chain blast; glass remains solid; ice melts; steam rises and can condense
 - Quick experiments for rainfall, ignition and plant growth
 - Pause/resume, world reset, brush size and 1×–4× simulation speed
-- Compact telemetry for particle count, FPS and reactions
+- Compact telemetry for particle count, FPS and reactions; brighter terrain contrast, subtle grid guides and lit surface edges
 - Crisp opaque controls (no canvas blur), tactile 3D-style buttons, selection feedback, entrance animations, blast flash/shake and smooth UI transitions
 - Respects `prefers-reduced-motion`; portrait mode offers a rotate hint but can be continued
 
@@ -30,6 +30,7 @@ A full-screen, landscape-first browser material sandbox with touch-friendly cont
 - Keys 1–9: quick material selection; Escape: eraser
 - Brush slider: change stroke size
 - Speed button: cycle 1× to 4×
+- Speaker button: toggle generated sound effects (enable with a tap; no external audio files)
 
 ## Technical notes
 
