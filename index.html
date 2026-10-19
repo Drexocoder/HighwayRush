@@ -60,5 +60,27 @@
 <div class="portraitHint" id="portraitHint"><div class="portraitCard"><div class="rotateGraphic"><i data-lucide="smartphone"></i></div><h2>Turn up the horizon</h2><p>HIGHWAY RUSH is best experienced in landscape. Rotate your phone for a wider, cinematic view.</p><button id="rotateBtn">Try landscape mode</button></div></div>
 </div>
 <script type="module" src="./js/main.js"></script>
+<script>
+/* Independent loader safety net: the intro still progresses if the module fails to parse or load. */
+(function(){
+ const start=Date.now();let completed=false;
+ const tick=setInterval(function(){
+  if(window.__highwayRushBooted){clearInterval(tick);return;}
+  const p=Math.min(96,Math.floor((Date.now()-start)/7200*96));
+  const pct=document.getElementById('loadPercent'),bar=document.getElementById('loadFill'),label=document.getElementById('loadStatus'),hint=document.getElementById('loadHint');
+  if(pct)pct.textContent=String(p).padStart(2,'0')+'%';
+  if(bar)bar.style.width=p+'%';
+  if(label)label.textContent=p<30?'INITIALIZING EXPERIENCE':p<60?'PREPARING VEHICLES':p<85?'INITIALIZING GRAPHICS':'FINAL CHECKS';
+  if(hint)hint.textContent='STARTUP CHECK '+p+'%';
+  if(Date.now()-start>8000&&!completed){
+   completed=true;clearInterval(tick);
+   if(pct)pct.textContent='100%';if(bar)bar.style.width='100%';
+   const intro=document.getElementById('introView'),menu=document.getElementById('menuView'),is=document.getElementById('introScene'),ms=document.getElementById('menuScene');
+   if(intro)intro.classList.remove('active');if(menu)menu.classList.add('active');if(is)is.classList.remove('ready');if(ms)ms.classList.add('ready');
+   const status=document.querySelector('.statusText');if(status)status.textContent='SYSTEM READY';
+  }
+ },100);
+})();
+</script>
 </body>
 </html>
